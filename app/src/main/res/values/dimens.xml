@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_bottom_sheet_layout">16dp</dimen>
+
+    <dimen name="margin_top">8dp</dimen>
+    <dimen name="margin_start_end">16dp</dimen>
+    <dimen name="margin_start_end_line">160dp</dimen>
+
+    <dimen name="route_layout">8dp</dimen>
+    <dimen name="route_margin_start">8dp</dimen>
+    <dimen name="route_button">32dp</dimen>
+    <dimen name="route_button_fix">48dp</dimen>
+    <dimen name="route_info_width">96dp</dimen>
+
+    <dimen name="corners_numeric">14dp</dimen>
+    <dimen name="text_14sp">14sp</dimen>
+    <dimen name="image_24dp">24dp</dimen>
+</resources>

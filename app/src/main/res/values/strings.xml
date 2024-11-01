@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Walk Of Interest</string>
+    <string name="preference_mode">Preference Mode</string>
+    <string name="on_foot">On foot</string>
+    <string name="to">To:</string>
+    <string name="from">From:</string>
+    <string name="image_more">more</string>
+    <string name="image_steps">steps</string>
+    <string name="info">info</string>
+    <string name="scroll_view_routes">scrollViewRoutes</string>
+    <string name="current_location">Current Location</string>
+    <string name="to2">To</string>
+</resources>
