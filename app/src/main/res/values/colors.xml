@@ -6,11 +6,12 @@
     <color name="black_alpha">#80000000</color>
     <color name="black_alpha_plus">#33000000</color>
     <color name="white_alpha">#66FFFFFF</color>
-    <color name="green">#738D82</color>
+    <color name="green">#4A6D63</color>
     <color name="button_gray">#353535</color>
     <color name="information_gray">#5C6171</color>
 
     <color name="route_green">#738D74</color>
     <color name="route_yellow">#8D8A73</color>
     <color name="route_red">#8D7373</color>
+    <color name="text_gray">#929292</color>
 </resources>

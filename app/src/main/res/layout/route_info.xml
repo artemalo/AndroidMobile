@@ -41,7 +41,7 @@
             android:layout_width="@dimen/route_info_width"
             android:layout_height="@dimen/route_button"
             android:background="@drawable/information"
-            android:layout_marginEnd="@dimen/route_button_fix"
+            android:layout_marginEnd="@dimen/button_fix"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -114,12 +114,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/aboutRoute"
-        android:layout_width="@dimen/route_button_fix"
-        android:layout_height="@dimen/route_button_fix"
+        android:layout_width="@dimen/button_fix"
+        android:layout_height="@dimen/button_fix"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/route"
-        app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true">
+        app:layout_constraintTop_toTopOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/route_button"
             android:layout_height="@dimen/route_button"

@@ -10,4 +10,5 @@
     <string name="scroll_view_routes">scrollViewRoutes</string>
     <string name="current_location">Current Location</string>
     <string name="to2">To</string>
+    <string name="next">Next</string>
 </resources>
