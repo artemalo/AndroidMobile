@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_category">
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background=""/>
 
-</RelativeLayout>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageViewNature"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:shapeAppearanceOverlay="@style/ImageCard"
+        android:contentDescription="@string/checknature"
+        android:background="@drawable/nature1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <CheckBox
+        android:clickable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:buttonTint="@color/white_green"
+        android:checked="false"
+        app:layout_constraintStart_toStartOf="@+id/imageViewNature"
+        app:layout_constraintTop_toTopOf="@+id/imageViewNature" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/nature"
+        android:textSize="@dimen/text_14sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewNature"
+        app:layout_constraintStart_toStartOf="@+id/imageViewNature"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewNature" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

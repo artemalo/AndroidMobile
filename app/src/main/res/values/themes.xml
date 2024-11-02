@@ -7,18 +7,6 @@
 
     <style name="Theme.WalkOfInterest" parent="Base.Theme.WalkOfInterest" />
 
-    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light">
-        <!-- colorPrimary is used for the default action bar background -->
-        <item name="colorPrimary">#181818</item>
 
-        <!-- colorAccent is used as the default value for colorControlActivated,
-             which is used to tint widgets -->
-        <item name="colorAccent">@color/white</item>
-    </style>
-
-    <style name="ButtonNext" parent="Widget.AppCompat.Button">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:background">@drawable/button_green</item>
-    </style>
 
 </resources>
