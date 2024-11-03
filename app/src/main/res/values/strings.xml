@@ -13,4 +13,5 @@
     <string name="next">Next</string>
     <string name="nature">Nature</string>
     <string name="checknature">CheckNature</string>
+    <string name="item_category">item category</string>
 </resources>

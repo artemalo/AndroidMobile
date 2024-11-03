@@ -4,21 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_start_end"
         android:background="@drawable/card_category">
+
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageViewNature"
-            android:clickable="true"
-            android:focusable="true"
+            android:id="@+id/imageCategory"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:shapeAppearanceOverlay="@style/ImageCard"
-            android:contentDescription="@string/checknature"
             android:background="@drawable/nature1"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:clickable="true"
+            android:contentDescription="@string/item_category"
+            android:focusable="true"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ImageCard" />
 
         <CheckBox
             android:clickable="false"
@@ -27,19 +28,34 @@
             android:layout_margin="2dp"
             android:buttonTint="@color/white_green"
             android:checked="false"
-            app:layout_constraintStart_toStartOf="@+id/imageViewNature"
-            app:layout_constraintTop_toTopOf="@+id/imageViewNature" />
+            app:layout_constraintStart_toStartOf="@+id/imageCategory"
+            app:layout_constraintTop_toTopOf="@+id/imageCategory" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:text="@string/nature"
-            android:textSize="@dimen/text_14sp"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/imageViewNature"
-            app:layout_constraintStart_toStartOf="@+id/imageViewNature"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewNature" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/margin_top"
+            app:layout_constraintBottom_toBottomOf="@+id/imageCategory"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageCategory"
+            app:layout_constraintTop_toTopOf="@+id/imageCategory">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14sp" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
