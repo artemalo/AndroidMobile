@@ -75,9 +75,9 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintTop_toBottomOf="@+id/from_to_info">
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:id="@+id/recyclerViewCategories"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
     </ScrollView>
 
     <LinearLayout
@@ -100,6 +100,7 @@
                 android:id="@+id/switchPreference"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_marginStart="@dimen/margin_start_end"
                 android:checked="false"
                 android:theme="@style/theme_switch"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -130,7 +131,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_top"
+                android:layout_marginEnd="@dimen/margin_start_end"
                 android:text="@string/on_foot"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -147,7 +148,7 @@
             android:layout_marginBottom="@dimen/margin_start_end"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?attr/selectableItemBackground">
+            android:background="@drawable/round_button_background">
 
             <android.widget.Button
                 style="@style/ButtonNext"

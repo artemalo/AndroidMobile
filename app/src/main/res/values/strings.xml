@@ -14,4 +14,26 @@
     <string name="nature">Nature</string>
     <string name="checknature">CheckNature</string>
     <string name="item_category">item category</string>
+    <string name="profile_button_back">Button back</string>
+    <string name="profile_button_profile">button profile</string>
+
+    <string-array name="categories_name">
+        <item>Nature</item>
+        <item>History</item>
+        <item>Culture</item>
+        <item>Gastronomic</item>
+        <item>Family</item>
+        <item>Structures</item>
+        <item>Active leisure</item>
+    </string-array>
+
+    <string-array name="categories_description">
+        <item>Прогулки по паркам, лесам, заповедникам, набережным и другим природным зонам.</item>
+        <item>Маршруты по местам с исторической ценностью, включая древние здания, памятники, музеи и архитектурные достопримечательности.</item>
+        <item>Прогулки по местам, связанным с культурой: театры, галереи, выставочные залы, концертные площадки и другие культурные объекты.</item>
+        <item>Кафе, рестораны, уличная едой, где можно попробовать местные блюда и напитки.</item>
+        <item>Прогулки, подходящие для семей с детьми, включающие парки с детскими площадками, безопасные тропинки и места для пикников.</item>
+        <item>Различным районы города, чтобы лучше узнать местный колорит, архитектуру и атмосферу.</item>
+        <item>Тропы и дорожки, подходящие для тех, кто предпочитает бег и другой активный отдых.</item>
+    </string-array>
 </resources>
