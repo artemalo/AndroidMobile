@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".StartRouteActivity"
             android:exported="false" />
         <activity
@@ -30,7 +33,7 @@
         <activity
             android:name=".CategoriesActivity"
             android:configChanges="orientation|screenSize"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
