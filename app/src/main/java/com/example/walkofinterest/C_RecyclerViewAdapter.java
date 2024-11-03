@@ -33,7 +33,7 @@ public class C_RecyclerViewAdapter extends RecyclerView.Adapter<C_RecyclerViewAd
     @Override
     public void onBindViewHolder(@NonNull C_RecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.tvName.setText(categoryModels.get(position).getName());
-        holder.tvDescription.setText(categoryModels.get(position).getName());
+        holder.tvDescription.setText(categoryModels.get(position).getDescription());
         holder.imageView.setImageResource(categoryModels.get(position).getImage());
     }
 

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         /*MapKitFactory.setApiKey("28da8ea7-c995-4793-b13b-2971cf44e2f0");
         MapKitFactory.initialize(this);*/
 
-        setContentView(R.layout.activity_categories);
+        setContentView(R.layout.activity_main);
         /*mapView = (MapView)findViewById(R.id.mapview);
         mapView.getMap().move(
                 new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),

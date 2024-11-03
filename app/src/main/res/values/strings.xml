@@ -16,6 +16,9 @@
     <string name="item_category">item category</string>
     <string name="profile_button_back">Button back</string>
     <string name="profile_button_profile">button profile</string>
+    <string name="description_splash_screen">Walk with your route</string>
+    <string name="made_by_artemalo">Made by ARTEMALO</string>
+    <string name="contentDescription_image_logo">logo</string>
 
     <string-array name="categories_name">
         <item>Nature</item>
