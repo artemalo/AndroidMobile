@@ -29,6 +29,10 @@
     <string name="text_login">Login</string>
     <string name="text_access_account">Access account</string>
     <string name="input_email">input email</string>
+    <string name="text_password">Password</string>
+    <string name="text_email">E-mail</string>
+    <string name="text_forgot_password">forgot password</string>
+    <string name="donthaveanaccount">Don\'t have an account? <b>Register</b></string>
 
     <string-array name="categories_name">
         <item>Nature</item>

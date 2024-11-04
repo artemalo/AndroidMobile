@@ -6,7 +6,7 @@
     <dimen name="margin_top">8dp</dimen>
     <dimen name="margin_start_end">16dp</dimen>
     <dimen name="margin_start_end_line">160dp</dimen>
-    <dimen name="margin_input_start_end">48dp</dimen>
+    <dimen name="margin_input_start_end">36dp</dimen>
 
     <dimen name="button_width">320dp</dimen>
     <dimen name="next_button">32dp</dimen>
@@ -25,4 +25,6 @@
     <dimen name="profile_margin_layout_button">64dp</dimen>
     <dimen name="text_size_title">32sp</dimen>
     <dimen name="text_size_subtitle">20sp</dimen>
+    <dimen name="margin_start_topText_input">24dp</dimen>
+    <dimen name="margin_top_to_logo">48dp</dimen>
 </resources>

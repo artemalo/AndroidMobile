@@ -5,8 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:background="@color/color_theme">
+    android:background="@color/color_theme"
+    android:elevation="5dp"
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/imageLogo"
@@ -15,7 +16,6 @@
         android:contentDescription="@string/contentDescription_image_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2"
@@ -35,6 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/text_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
@@ -45,29 +46,109 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/input_email"
+        style="@style/InputTextWhite"
+        android:layout_marginTop="@dimen/margin_top_to_logo"
+        android:autofillHints="emailAddress"
+        android:hint="@string/text_email"
+        android:inputType="textEmailAddress"
+        android:labelFor="@id/text_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageLogo"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/inputwhite"
-        android:paddingStart="@dimen/margin_start_end"
-        android:paddingEnd="@dimen/margin_start_end"
-        android:layout_marginTop="@dimen/margin_start_end"
-        android:layout_marginStart="@dimen/margin_input_start_end"
-        android:layout_marginEnd="@dimen/margin_input_start_end"
-        app:layout_constraintTop_toBottomOf="@id/imageLogo">
+        android:text="@string/text_email"
+        android:textColor="@color/gray_for_white_background"
+        android:layout_marginStart="@dimen/margin_start_topText_input"
+        app:layout_constraintStart_toStartOf="@+id/input_email"
+        app:layout_constraintTop_toTopOf="@+id/input_email" />
+
+    <EditText
+        android:id="@+id/input_password"
+        style="@style/InputTextWhite"
+        android:autofillHints="password"
+        android:hint="@string/text_password"
+        android:inputType="textPassword"
+        android:labelFor="@id/text_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_email"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/text_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_start_topText_input"
+        android:text="@string/text_password"
+        android:textColor="@color/gray_for_white_background"
+        app:layout_constraintStart_toStartOf="@+id/input_password"
+        app:layout_constraintTop_toTopOf="@+id/input_password" />
 
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/transparent"
-            android:hint="name@email.ru"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/text_gray"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonQuestion"
+        android:layout_width="@dimen/button_fix"
+        android:layout_height="@dimen/button_fix"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginEnd="@dimen/margin_top"
+        app:layout_constraintBottom_toBottomOf="@+id/input_password"
+        app:layout_constraintEnd_toEndOf="@+id/input_password"
+        app:layout_constraintTop_toTopOf="@+id/input_password">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:contentDescription="@string/text_forgot_password"
+            android:background="@drawable/button_question"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/buttonNext"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_fix"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_marginBottom="@dimen/margin_top"
+        app:layout_constraintBottom_toTopOf="@id/donthaveanaccount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.widget.Button
+            style="@style/ButtonNext"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/next_button"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_14sp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/donthaveanaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_14sp"
+        android:text="@string/donthaveanaccount"
+        android:layout_marginBottom="@dimen/margin_start_end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <!--<androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutEmail"

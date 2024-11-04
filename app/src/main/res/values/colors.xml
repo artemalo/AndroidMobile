@@ -17,4 +17,5 @@
     <color name="text_gray">#929292</color>
     <color name="white_green">#F8FEFA</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="gray_for_white_background">#666666</color>
 </resources>
