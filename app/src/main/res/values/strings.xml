@@ -26,6 +26,9 @@
     <string name="text_button_history">Routes history</string>
     <string name="text_button_favorite">Favorite routes</string>
     <string name="profile_button_favorite">profile_button_favorite</string>
+    <string name="text_login">Login</string>
+    <string name="text_access_account">Access account</string>
+    <string name="input_email">input email</string>
 
     <string-array name="categories_name">
         <item>Nature</item>

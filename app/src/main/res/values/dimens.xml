@@ -6,6 +6,7 @@
     <dimen name="margin_top">8dp</dimen>
     <dimen name="margin_start_end">16dp</dimen>
     <dimen name="margin_start_end_line">160dp</dimen>
+    <dimen name="margin_input_start_end">48dp</dimen>
 
     <dimen name="button_width">320dp</dimen>
     <dimen name="next_button">32dp</dimen>
@@ -22,4 +23,6 @@
     <dimen name="profile_username_text_size">32sp</dimen>
     <dimen name="profile_margin_top_layout_button">24dp</dimen>
     <dimen name="profile_margin_layout_button">64dp</dimen>
+    <dimen name="text_size_title">32sp</dimen>
+    <dimen name="text_size_subtitle">20sp</dimen>
 </resources>

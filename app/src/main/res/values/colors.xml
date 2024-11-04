@@ -16,4 +16,5 @@
     <color name="route_red">#8D7373</color>
     <color name="text_gray">#929292</color>
     <color name="white_green">#F8FEFA</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
