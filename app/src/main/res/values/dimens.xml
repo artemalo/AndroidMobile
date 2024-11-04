@@ -19,4 +19,7 @@
     <dimen name="corners_numeric">14dp</dimen>
     <dimen name="text_14sp">14sp</dimen>
     <dimen name="image_24dp">24dp</dimen>
+    <dimen name="profile_username_text_size">32sp</dimen>
+    <dimen name="profile_margin_top_layout_button">24dp</dimen>
+    <dimen name="profile_margin_layout_button">64dp</dimen>
 </resources>

@@ -19,6 +19,13 @@
     <string name="description_splash_screen">Walk with your route</string>
     <string name="made_by_artemalo">Made by ARTEMALO</string>
     <string name="contentDescription_image_logo">logo</string>
+    <string name="profile_button_edit">edit</string>
+    <string name="username">Username</string>
+    <string name="profile_image_profile">image profile</string>
+    <string name="profile_button_history">profile_button_history</string>
+    <string name="text_button_history">Routes history</string>
+    <string name="text_button_favorite">Favorite routes</string>
+    <string name="profile_button_favorite">profile_button_favorite</string>
 
     <string-array name="categories_name">
         <item>Nature</item>
