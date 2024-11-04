@@ -27,4 +27,5 @@
     <dimen name="text_size_subtitle">20sp</dimen>
     <dimen name="margin_start_topText_input">24dp</dimen>
     <dimen name="margin_top_to_logo">48dp</dimen>
+    <dimen name="margin_end_for_input">56dp</dimen>
 </resources>

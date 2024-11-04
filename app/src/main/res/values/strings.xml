@@ -32,7 +32,16 @@
     <string name="text_password">Password</string>
     <string name="text_email">E-mail</string>
     <string name="text_forgot_password">forgot password</string>
-    <string name="donthaveanaccount">Don\'t have an account? <b>Register</b></string>
+    <string name="click_text_donthaveanaccount">Don\'t have an account? <b>Register</b></string>
+    <string name="text_singup">SingUp</string>
+    <string name="text_welcome_to">Welcome to Walk Of Interest</string>
+    <string name="text_sign_in">Sign in</string>
+    <string name="text_confirm_password">Confirm the password</string>
+    <string name="vision_on">vision on</string>
+    <string name="vision_off">vision off</string>
+    <string name="text_your_username">your username</string>
+    <string name="text_sign_up">Sign Up</string>
+    <string name="click_text_alreadyamember">Already a member? <b>Sign in</b>></string>
 
     <string-array name="categories_name">
         <item>Nature</item>

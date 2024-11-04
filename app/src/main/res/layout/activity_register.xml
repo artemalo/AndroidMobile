@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_theme"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <ImageView
         android:id="@+id/imageLogo"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_start_end"
         android:fontFamily="sans-serif"
-        android:text="@string/text_login"
+        android:text="@string/text_singup"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_title"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:text="@string/text_access_account"
+        android:text="@string/text_welcome_to"
         android:textColor="@color/text_gray"
         android:textSize="@dimen/text_size_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,16 +46,36 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
 
     <EditText
-        android:id="@+id/input_email"
+        android:id="@+id/input_username"
         style="@style/InputTextWhite"
         android:layout_marginTop="@dimen/margin_top_to_logo"
+        android:autofillHints="username"
+        android:hint="@string/text_your_username"
+        android:inputType="textEmailAddress"
+        android:labelFor="@id/text_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageLogo"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username"
+        android:textColor="@color/gray_for_white_background"
+        android:layout_marginStart="@dimen/margin_start_topText_input"
+        app:layout_constraintStart_toStartOf="@+id/input_username"
+        app:layout_constraintTop_toTopOf="@+id/input_username" />
+
+    <EditText
+        android:id="@+id/input_email"
+        style="@style/InputTextWhite"
         android:autofillHints="emailAddress"
         android:hint="@string/text_email"
         android:inputType="textEmailAddress"
         android:labelFor="@id/text_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageLogo"
+        app:layout_constraintTop_toBottomOf="@id/input_username"
         tools:ignore="DuplicateSpeakableTextCheck" />
     <TextView
         android:layout_width="wrap_content"
@@ -78,7 +98,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_email"
         tools:ignore="DuplicateSpeakableTextCheck" />
-
     <TextView
         android:id="@+id/text_password"
         android:layout_width="wrap_content"
@@ -88,10 +107,8 @@
         android:textColor="@color/gray_for_white_background"
         app:layout_constraintStart_toStartOf="@+id/input_password"
         app:layout_constraintTop_toTopOf="@+id/input_password" />
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonQuestion"
+        android:id="@+id/buttonEyeSlash"
         android:layout_width="@dimen/button_fix"
         android:layout_height="@dimen/button_fix"
         android:clickable="true"
@@ -100,14 +117,57 @@
         app:layout_constraintBottom_toBottomOf="@+id/input_password"
         app:layout_constraintEnd_toEndOf="@+id/input_password"
         app:layout_constraintTop_toTopOf="@+id/input_password">
-
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
             android:focusable="false"
-            android:contentDescription="@string/text_forgot_password"
-            android:background="@drawable/button_question"
+            android:contentDescription="@string/vision_off"
+            android:background="@drawable/button_eye_slash"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/input_confirm_password"
+        style="@style/InputTextWhite"
+        android:autofillHints="password"
+        android:hint="@string/text_confirm_password"
+        android:inputType="textPassword"
+        android:labelFor="@id/text_password"
+        android:paddingEnd="@dimen/margin_end_for_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_password"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+    <TextView
+        android:id="@+id/text_confirm_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_start_topText_input"
+        android:text="@string/text_confirm_password"
+        android:textColor="@color/gray_for_white_background"
+        app:layout_constraintStart_toStartOf="@+id/input_confirm_password"
+        app:layout_constraintTop_toTopOf="@+id/input_confirm_password" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonEye"
+        android:layout_width="@dimen/button_fix"
+        android:layout_height="@dimen/button_fix"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginEnd="@dimen/margin_top"
+        app:layout_constraintBottom_toBottomOf="@+id/input_confirm_password"
+        app:layout_constraintEnd_toEndOf="@+id/input_confirm_password"
+        app:layout_constraintTop_toTopOf="@+id/input_confirm_password">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:contentDescription="@string/vision_on"
+            android:background="@drawable/button_eye"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +192,7 @@
             android:layout_height="@dimen/next_button"
             android:layout_gravity="center"
             android:clickable="false"
-            android:text="@string/text_sign_in"
+            android:text="@string/text_sign_up"
             android:textAllCaps="false"
             android:textSize="@dimen/text_14sp" />
     </FrameLayout>
@@ -143,7 +203,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="@dimen/text_14sp"
-        android:text="@string/click_text_donthaveanaccount"
+        android:text="@string/click_text_alreadyamember"
         android:layout_marginBottom="@dimen/margin_start_end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
