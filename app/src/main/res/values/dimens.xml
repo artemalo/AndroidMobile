@@ -8,13 +8,14 @@
     <dimen name="margin_start_end_line">160dp</dimen>
     <dimen name="margin_input_start_end">36dp</dimen>
 
+    <dimen name="button_small">32dp</dimen>
+    <dimen name="button_fix">48dp</dimen>
     <dimen name="button_width">320dp</dimen>
     <dimen name="next_button">32dp</dimen>
 
     <dimen name="route_layout">8dp</dimen>
     <dimen name="route_margin_start">8dp</dimen>
     <dimen name="route_button">32dp</dimen>
-    <dimen name="button_fix">48dp</dimen>
     <dimen name="route_info_width">96dp</dimen>
 
     <dimen name="corners_numeric">14dp</dimen>
@@ -28,4 +29,5 @@
     <dimen name="margin_start_topText_input">24dp</dimen>
     <dimen name="margin_top_to_logo">48dp</dimen>
     <dimen name="margin_end_for_input">56dp</dimen>
+    <dimen name="small_image">16dp</dimen>
 </resources>

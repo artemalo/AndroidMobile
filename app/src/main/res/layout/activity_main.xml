@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.yandex.mapkit.mapview.MapView
+        android:id="@+id/mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -30,39 +35,52 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/imageViewLocationBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/location_onblack"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutLocationBlack"
+                    android:layout_width="@dimen/button_small"
+                    android:layout_height="@dimen/button_small"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    app:layout_constraintTop_toTopOf="parent">
+                    <ImageView
+                        android:layout_width="@dimen/small_image"
+                        android:layout_height="@dimen/small_image"
+                        android:src="@drawable/location_onblack"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
                 <TextView
                     android:id="@+id/textCurrentLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:text="Current Location"
+                    android:layout_marginEnd="48dp"
+                    android:text="@string/current_location"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewLocationBlack"
+                    app:layout_constraintStart_toEndOf="@+id/constraintLayoutLocationBlack"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageButton
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/imageButtonClose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/close"
-                android:contentDescription="close"
+                android:layout_width="@dimen/button_fix"
+                android:layout_height="@dimen/button_fix"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:layout_width="@dimen/small_image"
+                    android:layout_height="@dimen/small_image"
+                    android:background="@drawable/close"
+                    android:contentDescription="@string/cancel"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--To Location-->
@@ -71,14 +89,23 @@
             android:layout_height="wrap_content"
             android:background="@drawable/inputwhite">
 
-            <ImageView
-                android:id="@+id/imageViewLocationBlackAlpha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/location_onalpha"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutLocationBlackAlpha"
+                android:layout_width="@dimen/button_small"
+                android:layout_height="@dimen/button_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:layout_width="@dimen/small_image"
+                    android:layout_height="@dimen/small_image"
+                    android:src="@drawable/location_onalpha"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textTo"
@@ -89,14 +116,14 @@
                 android:textColor="@color/black_alpha"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageViewLocationBlackAlpha"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayoutLocationBlackAlpha"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="8dp" />
+            android:layout_height="@dimen/margin_top" />
 
         <!--Time-->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,14 +132,22 @@
             android:layout_gravity="center"
             android:background="@drawable/inputwhite">
 
-            <ImageView
-                android:id="@+id/imageViewClock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/clockclockwisegray"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutLocationClock"
+                android:layout_width="@dimen/button_small"
+                android:layout_height="@dimen/button_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:layout_width="@dimen/small_image"
+                    android:layout_height="@dimen/small_image"
+                    android:src="@drawable/clockclockwisegray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textTime"
@@ -124,23 +159,18 @@
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageViewClock"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayoutLocationClock"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="8dp" />
+            android:layout_height="@dimen/margin_top" />
 
         <!--Button next-->
         <include layout="@layout/button_next" />
 
 
     </LinearLayout>
-
-    <com.yandex.mapkit.mapview.MapView
-        android:id="@+id/mapview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
