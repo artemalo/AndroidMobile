@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutRouteActivity"
+    android:background="@color/color_theme">
+
+    <include layout="@layout/back_and_profile"/>
+
+    <LinearLayout
+        android:id="@+id/from_to_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_profile"
+        android:layout_marginStart="@dimen/margin_start_end"
+        android:layout_marginEnd="@dimen/margin_start_end"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:id="@+id/linearLayoutFrom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textSize="@dimen/text_14sp"
+                android:text="@string/from"
+                android:textColor="@color/text_gray" />
+            <TextView
+                android:id="@+id/textCurrentLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_14sp"
+                android:text="@string/current_location"
+                android:textColor="@color/text_gray"
+                app:layout_constrainedWidth="true"
+                android:singleLine="true"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_end"
+            android:gravity="start"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textSize="@dimen/text_14sp"
+                android:text="@string/to"
+                android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/textTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_14sp"
+                android:text="@string/to2"
+                android:textColor="@color/white"
+                app:layout_constrainedWidth="true"
+                android:singleLine="true"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/aboutRoute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginStart="@dimen/margin_start_end"
+        android:layout_marginEnd="@dimen/margin_start_end"
+        android:background="@drawable/route_green"
+        app:layout_constraintTop_toBottomOf="@id/from_to_info">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/route_button"
+            android:layout_height="@dimen/route_button"
+            android:background="@drawable/numeric"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginBottom="@dimen/margin_top"
+            android:layout_marginStart="@dimen/route_margin_start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="i"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintSteps"
+            android:layout_width="@dimen/route_info_width"
+            android:layout_height="@dimen/route_button"
+            android:background="@drawable/information"
+            android:layout_marginEnd="@dimen/margin_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/imageSteps"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="@dimen/margin_top"
+                android:contentDescription="@string/image_steps"
+                android:src="@drawable/steps"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textSteps"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/info"
+                android:textColor="@color/white"
+                app:layout_constrainedWidth="true"
+                android:singleLine="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageSteps"
+                app:layout_constraintTop_toTopOf="parent">
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintTime"
+            android:layout_width="@dimen/route_info_width"
+            android:layout_height="@dimen/route_button"
+            android:background="@drawable/information"
+            android:layout_marginEnd="@dimen/margin_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/constraintSteps"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/imageTime"
+                android:layout_width="@dimen/image_24dp"
+                android:layout_height="@dimen/image_24dp"
+                android:layout_marginStart="@dimen/margin_top"
+                android:contentDescription="@string/image_steps"
+                android:src="@drawable/clockclockwisewhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/info"
+                android:textColor="@color/white"
+                app:layout_constrainedWidth="true"
+                android:singleLine="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageTime"
+                app:layout_constraintTop_toTopOf="parent">
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPoints"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginBottom="@dimen/margin_start_end"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddFovorite"
+        app:layout_constraintTop_toBottomOf="@+id/aboutRoute"/>
+
+    <FrameLayout
+        android:id="@+id/buttonAddFovorite"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_fix"
+        android:background="@drawable/round_button_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginBottom="@dimen/margin_start_end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.widget.Button
+            style="@style/ButtonAddFavorite"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/next_button"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:text="@string/text_button_add_favorite"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_14sp" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

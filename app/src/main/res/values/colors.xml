@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_theme">#222222</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="color_theme">#222222</color>
     <color name="black_alpha">#80000000</color>
     <color name="black_alpha_plus">#33000000</color>
     <color name="white_alpha">#66FFFFFF</color>
     <color name="green">#4A6D63</color>
+    <color name="yellow">#8A7240</color>
     <color name="gray">#333333</color>
     <color name="button_gray">#353535</color>
     <color name="information_gray">#5C6171</color>

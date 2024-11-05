@@ -16,8 +16,11 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="31">
         <!--<activity
-            android:name=".RegisterActivity"
+            android:name=".AboutRouteActivity"
             android:exported="false" />-->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
@@ -37,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".AboutRouteActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true" />
     </application>
