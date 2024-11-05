@@ -30,4 +30,5 @@
     <dimen name="margin_top_to_logo">48dp</dimen>
     <dimen name="margin_end_for_input">56dp</dimen>
     <dimen name="small_image">16dp</dimen>
+    <dimen name="text_rating_about_place">48sp</dimen>
 </resources>

@@ -16,8 +16,13 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="31">
         <!--<activity
+            android:name=".AboutPlaceActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".AboutRouteActivity"
-            android:exported="false" />-->
+            android:exported="false" />
+
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
@@ -29,7 +34,7 @@
             android:exported="false" />
         <activity
             android:name=".StartRouteActivity"
-            android:exported="false" />
+            android:exported="false" />-->
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
@@ -40,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutRouteActivity"
+            android:name=".AboutPlaceActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true" />
     </application>

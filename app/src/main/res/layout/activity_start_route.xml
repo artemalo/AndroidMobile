@@ -23,7 +23,6 @@
             android:layout_marginEnd="@dimen/margin_start_end_line"
             android:background="@drawable/line"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
