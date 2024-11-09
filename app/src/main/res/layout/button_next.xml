@@ -1,25 +1,20 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center">
-    <FrameLayout
-        android:id="@+id/buttonNext"
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/buttonNext"
+    android:layout_width="@dimen/button_width"
+    android:layout_height="@dimen/button_fix"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:layout_marginTop="@dimen/margin_start_end"
+    android:layout_marginBottom="@dimen/margin_start_end">
+    <android.widget.Button
+        android:enabled="false"
+        android:layout_gravity="center"
         android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_fix"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
-        android:layout_marginTop="@dimen/margin_start_end"
-        android:layout_marginBottom="@dimen/margin_start_end">
-        <android.widget.Button
-            android:layout_gravity="center"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/next_button"
-            android:clickable="false"
-            android:text="@string/next"
-            android:textAllCaps="false"
-            android:textSize="@dimen/text_14sp"
-            style="@style/ButtonNext"/>
-    </FrameLayout>
-</LinearLayout>
+        android:layout_height="@dimen/next_button"
+        android:clickable="false"
+        android:text="@string/next"
+        android:textAllCaps="false"
+        android:textSize="@dimen/text_14sp"
+        style="@style/ButtonNext"/>
+</FrameLayout>
