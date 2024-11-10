@@ -18,11 +18,11 @@
         <activity
             android:name=".MapFragment"
             android:exported="false" />
-        <!--
-        <activity
-            android:name=".AboutPlaceActivity"
-            android:exported="false" />
 
+        <activity
+            android:name=".CategoriesActivity"
+            android:exported="false" />
+        <!--
         <activity
             android:name=".AboutRouteActivity"
             android:exported="false" />
@@ -49,10 +49,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|screenSize"
-            android:exported="true" />
+
+        <!--<activity android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CategoriesActivity" />-->
+
+    <activity
+        android:name=".MainActivity"
+        android:configChanges="orientation|screenSize"
+        android:exported="true" />
     </application>
 
 </manifest>

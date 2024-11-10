@@ -1,8 +1,9 @@
 package com.example.walkofinterest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,16 +11,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
-
 public class MainActivity extends AppCompatActivity {
     private Boolean isPickerNotVisible = true;
 
     @Override
-    protected  void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         TouchTime();
+        ButtonNext();
 
     }
 
@@ -44,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    protected void ButtonNext () {
+        FrameLayout btnNext = findViewById(R.id.buttonNext);
 
+        btnNext.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CategoriesActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        });
+    }
 
 }

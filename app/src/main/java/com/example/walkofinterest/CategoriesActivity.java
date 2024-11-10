@@ -1,7 +1,8 @@
 package com.example.walkofinterest;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,24 +19,10 @@ public class CategoriesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_categories);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewCategories);
-
-        setUpCategoryModels();
-
-        C_RecyclerViewAdapter adapter = new C_RecyclerViewAdapter(this, categoryModels);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });*/
+        SetCategories();
+        ButtonBack();
     }
 
     private void setUpCategoryModels() {
@@ -46,4 +33,24 @@ public class CategoriesActivity extends AppCompatActivity {
             categoryModels.add(new CategoryModel(names[i], descriptions[i], categoryImages[i]));
         }
     }
+
+    protected void SetCategories() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewCategories);
+
+        setUpCategoryModels();
+
+        C_RecyclerViewAdapter adapter = new C_RecyclerViewAdapter(this, categoryModels);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    protected void ButtonBack() {
+        ImageButton imgBtn = findViewById(R.id.ButtonBack);
+        imgBtn.setOnClickListener(v ->{
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        });
+    }
+
 }
