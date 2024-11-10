@@ -20,14 +20,15 @@
         tools:layout="@layout/fragment_map" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:clickable="true"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_sheet_layout"
+        android:clickable="true"
         android:padding="@dimen/padding_bottom_sheet_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <!--Current Location-->
@@ -100,26 +101,28 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--To Location-->
-        <LinearLayout
+        <com.shawnlin.numberpicker.NumberPicker
             android:visibility="gone"
-            android:id="@+id/layoutNumPickerTime"
-            android:layout_width="59dp"
-            android:layout_height="124dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:layout_marginBottom="44dp"
+            android:contentDescription="@string/contentDesription_NumPicker"
+            android:id="@+id/numPickerTime"
+            android:layout_width="139dp"
+            android:layout_height="41dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/touchTime">
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/touchTime"
+            app:layout_constraintTop_toBottomOf="@+id/ConstrainLayoutTo_Location"
+            app:np_dividerColor="@color/gray_for_white_background"
+            app:np_min="0"
 
-            <NumberPicker
-                android:id="@+id/numPickerTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            app:np_orientation="horizontal"
+            app:np_selectedTextColor="#FFFFFF"
+            app:np_selectedTextSize="24sp"
+            app:np_textColor="#66FFFFFF"
+            app:np_textSize="14sp" />
 
+        <!--To Location-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ConstrainLayoutTo_Location"
             android:layout_width="match_parent"
@@ -152,10 +155,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:text="@string/to"
-                android:textColor="@color/black_alpha"
-                android:textSize="18sp"
                 android:layout_marginEnd="8dp"
+                android:text="@string/to"
+                android:textColor="@color/gray_for_white_background"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayoutLocationBlackAlpha"
@@ -169,9 +172,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_top"
             android:clickable="true"
-            app:layout_constraintTop_toBottomOf="@+id/ConstrainLayoutTo_Location"
+            app:layout_constraintEnd_toEndOf="@+id/ConstrainLayoutTo_Location"
             app:layout_constraintStart_toStartOf="@+id/ConstrainLayoutTo_Location"
-            app:layout_constraintEnd_toEndOf="@+id/ConstrainLayoutTo_Location">
+            app:layout_constraintTop_toBottomOf="@+id/ConstrainLayoutTo_Location">
             <!--Time-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="100dp"
@@ -206,9 +209,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
+                    android:layout_marginEnd="8dp"
                     android:textColor="@color/black_alpha"
                     android:textSize="18sp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayoutLocationClock"
@@ -223,10 +226,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_start_end"
             android:layout_marginBottom="@dimen/margin_top"
-            app:layout_constraintTop_toBottomOf="@+id/touchTime"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="@+id/touchTime"
             app:layout_constraintStart_toStartOf="@+id/touchTime"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"/>
+            app:layout_constraintTop_toBottomOf="@+id/touchTime" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

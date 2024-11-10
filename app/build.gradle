@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
     implementation 'com.yandex.android:maps.mobile:4.8.1-full'
     implementation libs.appcompat
     implementation libs.material
