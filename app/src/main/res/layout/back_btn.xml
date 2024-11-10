@@ -5,4 +5,5 @@
     android:background="@drawable/button_gray"
     android:contentDescription="@string/profile_button_back"
     android:padding="15dp"
-    android:src="@drawable/arrow_back" />
+    android:src="@drawable/arrow_back"
+    android:foreground="@drawable/ripple_button"/>

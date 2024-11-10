@@ -4,7 +4,7 @@
     android:layout_height="@dimen/button_fix"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackground"
+    android:foreground="@drawable/ripple_button"
     android:layout_marginTop="@dimen/margin_start_end"
     android:layout_marginBottom="@dimen/margin_start_end">
     <android.widget.Button

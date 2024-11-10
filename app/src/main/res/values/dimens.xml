@@ -31,4 +31,6 @@
     <dimen name="margin_end_for_input">56dp</dimen>
     <dimen name="small_image">16dp</dimen>
     <dimen name="text_rating_about_place">48sp</dimen>
+    <dimen name="r_btn_onHead">15dp</dimen>
+    <dimen name="marginBottom_BtnNext">24dp</dimen>
 </resources>
