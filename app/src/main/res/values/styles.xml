@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="theme_switch" parent="Theme.AppCompat.Light">
+    <style name="theme_switch">
         <!-- colorPrimary is used for the default action bar background -->
         <item name="colorPrimary">#181818</item>
 
