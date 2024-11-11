@@ -19,6 +19,15 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_map" />
 
+    <include
+        layout="@layout/profile_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginEnd="@dimen/margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -52,6 +61,7 @@
                     android:id="@+id/constraintLayoutLocationBlack"
                     android:layout_width="@dimen/button_small"
                     android:layout_height="@dimen/button_small"
+                    android:contentDescription="@string/contentDescription_current_location"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -59,6 +69,7 @@
                     <ImageView
                         android:layout_width="@dimen/small_image"
                         android:layout_height="@dimen/small_image"
+                        android:contentDescription="@string/contentDescription_current_location"
                         android:src="@drawable/location_onblack"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +115,7 @@
         <com.shawnlin.numberpicker.NumberPicker
             android:visibility="gone"
             android:layout_marginBottom="44dp"
-            android:contentDescription="@string/contentDesription_NumPicker"
+            android:contentDescription="@string/contentDescription_NumPicker"
             android:id="@+id/numPickerTime"
             android:layout_width="139dp"
             android:layout_height="41dp"
@@ -136,6 +147,7 @@
                 android:id="@+id/constraintLayoutLocationBlackAlpha"
                 android:layout_width="@dimen/button_small"
                 android:layout_height="@dimen/button_small"
+                android:contentDescription="@string/contentDescription_location_to"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -144,6 +156,7 @@
                     android:layout_width="@dimen/small_image"
                     android:layout_height="@dimen/small_image"
                     android:src="@drawable/location_onalpha"
+                    android:contentDescription="@string/contentDescription_location_to"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -198,6 +211,7 @@
                         android:layout_width="@dimen/small_image"
                         android:layout_height="@dimen/small_image"
                         android:src="@drawable/clockclockwisegray"
+                        android:contentDescription="@string/contentDescription_NumPicker"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -233,5 +247,10 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainerProfile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

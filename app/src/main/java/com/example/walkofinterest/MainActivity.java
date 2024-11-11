@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,6 @@ import com.shawnlin.numberpicker.NumberPicker;
 
 public class MainActivity extends AppCompatActivity {
     private Boolean isPickerNotVisible = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,28 @@ public class MainActivity extends AppCompatActivity {
 
         TouchTime();
         ButtonNext();
+        ButtonProfile();
+    }
 
+    private void ButtonProfile() {
+        ImageButton btnProfile = findViewById(R.id.btnProfile);
+        btnProfile.setOnClickListener(v -> {
+            ProfileFragment profileFragment = new ProfileFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerProfile, profileFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+    }
+
+    protected void ButtonNext () {
+        FrameLayout btnNext = findViewById(R.id.buttonNext);
+        btnNext.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CategoriesActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        });
     }
 
     protected void TouchTime() {
@@ -44,15 +65,4 @@ public class MainActivity extends AppCompatActivity {
             isPickerNotVisible = !isPickerNotVisible;
         });
     }
-
-    protected void ButtonNext () {
-        FrameLayout btnNext = findViewById(R.id.buttonNext);
-
-        btnNext.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CategoriesActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
-        });
-    }
-
 }

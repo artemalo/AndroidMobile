@@ -45,8 +45,10 @@
     <string name="text_button_add_favorite">Add favorite</string>
     <string name="cancel">cancel</string>
     <string name="address">Address</string>
-    <string name="contentDesription_NumPicker">Number for hour</string>
+    <string name="contentDescription_NumPicker">Number for hour</string>
     <string name="contentText_switcher">switcher</string>
+    <string name="contentDescription_current_location">Current location</string>
+    <string name="contentDescription_location_to">Location to</string>
 
     <string-array name="categories_name">
         <item>Nature</item>

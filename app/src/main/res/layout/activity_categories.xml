@@ -100,17 +100,6 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintTop_toBottomOf="@+id/from_to_info"/>
 
-
-    <!--<LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">-->
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
@@ -162,28 +151,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--<FrameLayout
-            android:id="@+id/buttonNext"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_fix"
-            android:layout_marginTop="@dimen/margin_start_end"
-            android:layout_marginBottom="@dimen/margin_start_end"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/round_button_background">
-
-            <android.widget.Button
-                style="@style/ButtonNext"
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/next_button"
-                android:layout_gravity="center"
-                android:clickable="false"
-                android:text="@string/next"
-                android:textAllCaps="false"
-                android:textSize="@dimen/text_14sp" />
-        </FrameLayout>-->
-
-<!--    </LinearLayout>-->
     <include
         layout="@layout/button_next"
         android:layout_width="wrap_content"
