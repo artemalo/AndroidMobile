@@ -35,7 +35,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ButtonBack">
+        app:layout_constraintTop_toBottomOf="@+id/btnBack">
 
         <LinearLayout
             android:id="@+id/linearLayoutFrom"
@@ -104,7 +104,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/buttonNext">
+            app:layout_constraintBottom_toTopOf="@+id/btnNext">
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchPreference"
@@ -160,5 +160,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/fragmentContainerProfile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

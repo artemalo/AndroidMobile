@@ -115,7 +115,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
-        android:id="@+id/buttonNext"
+        android:id="@+id/btnNext"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_fix"
         android:clickable="true"

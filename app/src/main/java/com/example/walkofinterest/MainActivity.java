@@ -1,18 +1,16 @@
 package com.example.walkofinterest;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.shawnlin.numberpicker.NumberPicker;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseButtons {
     private Boolean isPickerNotVisible = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,32 +18,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TouchTime();
-        ButtonNext();
-        ButtonProfile();
-    }
-
-    private void ButtonProfile() {
         ImageButton btnProfile = findViewById(R.id.btnProfile);
-        btnProfile.setOnClickListener(v -> {
-            ProfileFragment profileFragment = new ProfileFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainerProfile, profileFragment)
-                    .addToBackStack(null)
-                    .commit();
-        });
+        if (btnProfile != null)
+            btnProfile.setOnClickListener(v -> ButtonProfile());
+
+        FrameLayout btnNext = findViewById(R.id.btnNext);
+        if (btnNext != null)
+            btnNext.setOnClickListener(v -> ButtonNext(getNextActivityClass()));
     }
 
-    protected void ButtonNext () {
-        FrameLayout btnNext = findViewById(R.id.buttonNext);
-        btnNext.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CategoriesActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
-        });
+    @Override
+    protected Class<?> getBackActivityClass() {
+        return null;
     }
 
-    protected void TouchTime() {
+    @Override
+    protected Class<?> getNextActivityClass() {
+        return CategoriesActivity.class;
+    }
+
+    private void TouchTime() {
         ConstraintLayout touchTime = findViewById(R.id.touchTime);
         NumberPicker numPickerTime = findViewById(R.id.numPickerTime);
 

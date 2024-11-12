@@ -1,5 +1,5 @@
 <FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/buttonNext"
+    android:id="@+id/btnNext"
     android:layout_width="@dimen/button_width"
     android:layout_height="@dimen/button_fix"
     android:clickable="true"

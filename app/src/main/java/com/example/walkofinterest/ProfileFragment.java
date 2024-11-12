@@ -21,7 +21,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageButton backButton = view.findViewById(R.id.ButtonBack);
+        ImageButton backButton = view.findViewById(R.id.btnBack);
         backButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
     }
 }

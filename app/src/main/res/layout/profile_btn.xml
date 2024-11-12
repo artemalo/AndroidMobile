@@ -2,7 +2,7 @@
     android:id="@+id/btnProfile"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/button_gray_alpha"
+    android:background="@drawable/button_gray"
     android:contentDescription="@string/profile_button_profile"
     android:padding="7dp"
     android:src="@drawable/generic_avatar" />
