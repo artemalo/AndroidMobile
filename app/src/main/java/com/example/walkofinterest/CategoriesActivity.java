@@ -7,6 +7,9 @@ import android.widget.ImageButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.walkofinterest.models.adapters.CategoryRVAdapter;
+import com.example.walkofinterest.models.adapters.CategoryModel;
+
 import java.util.ArrayList;
 
 public class CategoriesActivity extends BaseButtons {
@@ -44,7 +47,7 @@ public class CategoriesActivity extends BaseButtons {
         return StartRouteActivity.class;
     }
 
-    private void setUpCategoryModels() {
+    private void SetUpCategoryModels() {
         String[] names = getResources().getStringArray(R.array.categories_name);
         String[] descriptions = getResources().getStringArray(R.array.categories_description);
 
@@ -56,9 +59,9 @@ public class CategoriesActivity extends BaseButtons {
     protected void SetCategories() {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewCategories);
 
-        setUpCategoryModels();
+        SetUpCategoryModels();
 
-        C_RecyclerViewAdapter adapter = new C_RecyclerViewAdapter(this, categoryModels);
+        CategoryRVAdapter adapter = new CategoryRVAdapter(this, categoryModels);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

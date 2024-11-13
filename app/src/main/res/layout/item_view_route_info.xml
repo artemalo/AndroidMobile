@@ -28,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/indexRouteInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -49,7 +50,7 @@
                 android:id="@+id/imageSteps"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginStart="@dimen/margin_top"
+                android:layout_marginStart="@dimen/margin_start_info"
                 android:contentDescription="@string/image_steps"
                 android:src="@drawable/steps"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,9 +58,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textSteps"
+                android:id="@+id/countStepsRouteInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_start_info"
                 android:gravity="center"
                 android:text="@string/info"
                 android:textColor="@color/white"
@@ -86,7 +88,7 @@
                 android:id="@+id/imageTime"
                 android:layout_width="@dimen/image_24dp"
                 android:layout_height="@dimen/image_24dp"
-                android:layout_marginStart="@dimen/margin_top"
+                android:layout_marginStart="@dimen/margin_start_info"
                 android:contentDescription="@string/image_steps"
                 android:src="@drawable/clockclockwisewhite"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -94,9 +96,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textTime"
+                android:id="@+id/timeRouteInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_start_info"
                 android:gravity="center"
                 android:text="@string/info"
                 android:textColor="@color/white"

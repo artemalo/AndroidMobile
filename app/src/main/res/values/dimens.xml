@@ -33,4 +33,5 @@
     <dimen name="text_rating_about_place">48sp</dimen>
     <dimen name="r_btn_onHead">15dp</dimen>
     <dimen name="marginBottom_BtnNext">24dp</dimen>
+    <dimen name="margin_start_info">5dp</dimen>
 </resources>

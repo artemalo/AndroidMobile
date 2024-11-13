@@ -1,4 +1,4 @@
-package com.example.walkofinterest;
+package com.example.walkofinterest.models.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,28 +10,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.walkofinterest.R;
+
 import java.util.ArrayList;
 
-public class C_RecyclerViewAdapter extends RecyclerView.Adapter<C_RecyclerViewAdapter.MyViewHolder> {
+public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.MyViewHolder> {
     Context context;
     ArrayList<CategoryModel> categoryModels;
 
-    public C_RecyclerViewAdapter(Context context, ArrayList<CategoryModel> categoryModels){
+    public CategoryRVAdapter(Context context, ArrayList<CategoryModel> categoryModels){
         this.context = context;
         this.categoryModels = categoryModels;
     }
 
     @NonNull
     @Override
-    public C_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryRVAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_view_category, parent, false);
 
-        return new C_RecyclerViewAdapter.MyViewHolder(view);
+        return new CategoryRVAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull C_RecyclerViewAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryRVAdapter.MyViewHolder holder, int position) {
         holder.tvName.setText(categoryModels.get(position).getName());
         holder.tvDescription.setText(categoryModels.get(position).getDescription());
         holder.imageView.setImageResource(categoryModels.get(position).getImage());

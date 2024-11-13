@@ -1,4 +1,4 @@
-package com.example.walkofinterest;
+package com.example.walkofinterest.models.adapters;
 
 public class CategoryModel {
     String name;
