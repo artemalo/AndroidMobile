@@ -4,14 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/route"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginBottom="@dimen/margin_top"
         android:layout_marginStart="@dimen/margin_start_end"
         android:layout_marginEnd="@dimen/margin_start_end"
         android:background="@drawable/route_green"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,10 +23,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/route_button"
             android:layout_height="@dimen/route_button"
-            android:background="@drawable/numeric"
+            android:layout_marginStart="@dimen/route_margin_start"
             android:layout_marginTop="@dimen/margin_top"
             android:layout_marginBottom="@dimen/margin_top"
-            android:layout_marginStart="@dimen/route_margin_start"
+            android:background="@drawable/numeric"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -41,11 +45,12 @@
             android:id="@+id/constraintSteps"
             android:layout_width="@dimen/route_info_width"
             android:layout_height="@dimen/route_button"
-            android:background="@drawable/information"
             android:layout_marginEnd="@dimen/button_fix"
+            android:background="@drawable/information"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/imageSteps"
                 android:layout_width="24dp"
@@ -63,27 +68,27 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/margin_start_info"
                 android:gravity="center"
+                android:singleLine="true"
                 android:text="@string/info"
                 android:textColor="@color/white"
                 app:layout_constrainedWidth="true"
-                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageSteps"
-                app:layout_constraintTop_toTopOf="parent">
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent"></TextView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintTime"
             android:layout_width="@dimen/route_info_width"
             android:layout_height="@dimen/route_button"
-            android:background="@drawable/information"
             android:layout_marginEnd="@dimen/margin_top"
+            android:background="@drawable/information"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/constraintSteps"
             app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/imageTime"
                 android:layout_width="@dimen/image_24dp"
@@ -101,16 +106,15 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/margin_start_info"
                 android:gravity="center"
+                android:singleLine="true"
                 android:text="@string/info"
                 android:textColor="@color/white"
                 app:layout_constrainedWidth="true"
-                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageTime"
-                app:layout_constraintTop_toTopOf="parent">
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent"></TextView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

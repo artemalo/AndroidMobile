@@ -1,14 +1,8 @@
 package com.example.walkofinterest;
 
 import android.os.Bundle;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +12,7 @@ import com.example.walkofinterest.models.adapters.RouteInfoRVAdapter;
 import java.util.ArrayList;
 
 public class StartRouteActivity extends BaseButtons{
-    ArrayList<RouteInfoModel> routeInfoModels;
+    ArrayList<RouteInfoModel> routeInfoModels = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
