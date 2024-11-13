@@ -22,24 +22,10 @@
         <activity
             android:name=".CategoriesActivity"
             android:exported="false" />
-        <!--
-        <activity
-            android:name=".AboutRouteActivity"
-            android:exported="false" />
 
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false" />
         <activity
             android:name=".StartRouteActivity"
             android:exported="false" />
-        -->
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
