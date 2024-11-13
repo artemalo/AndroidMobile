@@ -32,7 +32,7 @@ public class CategoriesActivity extends BaseButtons {
         if (btnBack != null)
             btnBack.setOnClickListener(v -> ButtonBack(getBackActivityClass()));
 
-        FrameLayout btnNext = findViewById(R.id.btnNext);//CRASH
+        FrameLayout btnNext = findViewById(R.id.btnNext);//CRASH!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (btnNext != null)
             btnNext.setOnClickListener(v -> ButtonNext(getNextActivityClass()));
     }
@@ -47,15 +47,6 @@ public class CategoriesActivity extends BaseButtons {
         return StartRouteActivity.class;
     }
 
-    private void SetUpCategoryModels() {
-        String[] names = getResources().getStringArray(R.array.categories_name);
-        String[] descriptions = getResources().getStringArray(R.array.categories_description);
-
-        for (int i = 0; i < names.length; i++) {
-            categoryModels.add(new CategoryModel(names[i], descriptions[i], categoryImages[i]));
-        }
-    }
-
     protected void SetCategories() {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewCategories);
 
@@ -64,6 +55,15 @@ public class CategoriesActivity extends BaseButtons {
         CategoryRVAdapter adapter = new CategoryRVAdapter(this, categoryModels);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void SetUpCategoryModels() {
+        String[] names = getResources().getStringArray(R.array.categories_name);
+        String[] descriptions = getResources().getStringArray(R.array.categories_description);
+
+        for (int i = 0; i < names.length; i++) {
+            categoryModels.add(new CategoryModel(names[i], descriptions[i], categoryImages[i]));
+        }
     }
 
 }

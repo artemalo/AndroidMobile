@@ -9,13 +9,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.walkofinterest.models.adapters.RouteInfoModel;
+import com.example.walkofinterest.models.adapters.RouteInfoRVAdapter;
+
+import java.util.ArrayList;
 
 public class StartRouteActivity extends BaseButtons{
+    ArrayList<RouteInfoModel> routeInfoModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_route);
+
+        SetRouteInformation();
 
         ImageButton btnProfile = findViewById(R.id.btnProfile);
         if (btnProfile != null)
@@ -34,5 +44,30 @@ public class StartRouteActivity extends BaseButtons{
     @Override
     protected Class<?> getNextActivityClass() {
         return null;//GoActivity
+    }
+
+    protected void SetRouteInformation() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewRouteInformation);
+        SetUpRouteInfoModels();
+
+        RouteInfoRVAdapter adapter = new RouteInfoRVAdapter(this, routeInfoModels);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void SetUpRouteInfoModels() {
+        //int[] indexArray = {1, 2};
+        final int n = 3;
+        int[] timeArray = new int[n];
+        int[] countSteps = new int [n];
+
+        for (int i = 0; i < n; i++) {
+            timeArray[i] = 60 * (i + 1);
+            countSteps[i] = 10000 * (i + 1);
+        }
+
+        for (int i = 0; i < n; i++) {
+            routeInfoModels.add(new RouteInfoModel(i + 1, timeArray[i], countSteps[i]));
+        }
     }
 }

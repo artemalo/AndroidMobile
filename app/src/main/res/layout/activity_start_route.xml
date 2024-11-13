@@ -4,7 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/back_and_profile"/>
+    <include
+        layout="@layout/profile_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginEnd="@dimen/margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        layout="@layout/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginStart="@dimen/margin_top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -89,7 +105,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ScrollView
+        <!--<ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/scroll_view_routes"
@@ -105,7 +121,16 @@
                 app:layout_constraintTop_toBottomOf="parent">
 
             </TableLayout>
-        </ScrollView>
+        </ScrollView>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewRouteInformation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginBottom="@dimen/margin_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/from_to_info"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
