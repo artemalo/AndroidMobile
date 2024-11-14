@@ -1,5 +1,7 @@
 package com.example.walkofinterest;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -49,6 +51,7 @@ public class StartRouteActivity extends BaseButtons{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void SetUpRouteInfoModels() {
         //int[] indexArray = {1, 2};
         final int n = 3;
@@ -60,8 +63,21 @@ public class StartRouteActivity extends BaseButtons{
             countSteps[i] = 10000 * (i + 1);
         }
 
-        for (int i = 0; i < n; i++) {
-            routeInfoModels.add(new RouteInfoModel(i + 1, timeArray[i], countSteps[i]));
+        Drawable drawable;
+        int i = 0;
+        {
+            drawable = getDrawable(R.drawable.route_green);
+            routeInfoModels.add(new RouteInfoModel(i+1, timeArray[i], countSteps[i], drawable));
+            i++;
+        }
+        {
+            drawable = getDrawable(R.drawable.route_yellow);
+            routeInfoModels.add(new RouteInfoModel(i+1, timeArray[i], countSteps[i], drawable));
+            i++;
+        }
+        {
+            drawable = getDrawable(R.drawable.route_red);
+            routeInfoModels.add(new RouteInfoModel(i+1, timeArray[i], countSteps[i], drawable));
         }
     }
 }

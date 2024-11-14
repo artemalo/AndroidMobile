@@ -1,20 +1,25 @@
 package com.example.walkofinterest.models.adapters;
 
+import android.graphics.drawable.Drawable;
+
 public class RouteInfoModel {
     String index;
     String time;
     String countSteps;
+    Drawable color;
 
-    public RouteInfoModel(String index, String time, String countSteps) {
+    public RouteInfoModel(String index, String time, String countSteps, Drawable color) {
         this.index = index;
         this.time = time;
         this.countSteps = countSteps;
+        this.color = color;
     }
 
-    public RouteInfoModel(int index, int time, int countSteps) {
+    public RouteInfoModel(int index, int time, int countSteps, Drawable color) {
         this.index = String.valueOf(index);
         this.time = String.valueOf(time);
         this.countSteps = String.valueOf(countSteps);
+        this.color = color;
     }
 
     public String getIndex() {
@@ -27,5 +32,9 @@ public class RouteInfoModel {
 
     public String getCountSteps(){
         return countSteps;
+    }
+
+    public Drawable getColor(){
+        return color;
     }
 }

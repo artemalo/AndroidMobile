@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.walkofinterest.R;
@@ -36,6 +37,7 @@ public class RouteInfoRVAdapter extends RecyclerView.Adapter<RouteInfoRVAdapter.
         holder.index.setText(routeInfoModels.get(position).getIndex());
         holder.time.setText(routeInfoModels.get(position).getTime());
         holder.countSteps.setText(routeInfoModels.get(position).getCountSteps());
+        holder.constraintLayout.setBackground(routeInfoModels.get(position).getColor());
     }
 
     @Override
@@ -47,6 +49,7 @@ public class RouteInfoRVAdapter extends RecyclerView.Adapter<RouteInfoRVAdapter.
         TextView index;
         TextView time;
         TextView countSteps;
+        ConstraintLayout constraintLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -54,6 +57,7 @@ public class RouteInfoRVAdapter extends RecyclerView.Adapter<RouteInfoRVAdapter.
             index = itemView.findViewById(R.id.indexRouteInfo);
             time = itemView.findViewById(R.id.timeRouteInfo);
             countSteps = itemView.findViewById(R.id.countStepsRouteInfo);
+            constraintLayout = itemView.findViewById(R.id.route);
         }
     }
 }

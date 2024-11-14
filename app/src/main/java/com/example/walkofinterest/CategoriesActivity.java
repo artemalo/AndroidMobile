@@ -32,7 +32,7 @@ public class CategoriesActivity extends BaseButtons {
         if (btnBack != null)
             btnBack.setOnClickListener(v -> ButtonBack(getBackActivityClass()));
 
-        FrameLayout btnNext = findViewById(R.id.btnNext);//CRASH!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        FrameLayout btnNext = findViewById(R.id.btnNext);
         if (btnNext != null)
             btnNext.setOnClickListener(v -> ButtonNext(getNextActivityClass()));
     }
