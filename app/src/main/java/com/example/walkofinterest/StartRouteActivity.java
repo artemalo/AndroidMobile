@@ -52,14 +52,24 @@ public class StartRouteActivity extends BaseButtons{
             return false;
         });
 
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
+        float density = getResources().getDisplayMetrics().density;
         bottomSheetBehavior.setPeekHeight(400);
 
-        int screenHeight = getResources().getDisplayMetrics().heightPixels;
-        int margin80dp = (int) (80 * getResources().getDisplayMetrics().density);
+        /*if (routeInfoModels.size() >= 3) {
+            bottomSheetBehavior.setPeekHeight(bottomSheet.getHeight()+(int)density+300);
+        }
+        else if (routeInfoModels.size() == 2) {
+            bottomSheetBehavior.setPeekHeight(bottomSheet.getHeight()+(int)density+200);
+        }
+        else if (routeInfoModels.size() == 1) {
+            bottomSheetBehavior.setPeekHeight(bottomSheet.getHeight()+(int)density+100);
+        }*/
 
-        bottomSheetBehavior.setMaxHeight(screenHeight - margin80dp);
+        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        bottomSheetBehavior.setMaxHeight(screenHeight - (int)(80 * density));
     }
 
     @Override
@@ -83,30 +93,23 @@ public class StartRouteActivity extends BaseButtons{
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void SetUpRouteInfoModels() {
-        final int n = 30;
-        int[] timeArray = new int[n];
-        int[] countSteps = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            timeArray[i] = 60 * (i + 1);
-            countSteps[i] = 10000 * (i + 1);
-        }
+        final int n = 12;//min 3, n % 3 == 0
 
         for (int i = 0; i < n; i++) {
             Drawable drawable;
             {
                 drawable = getDrawable(R.drawable.route_green);
-                routeInfoModels.add(new RouteInfoModel(i + 1, timeArray[i], countSteps[i], drawable));
+                routeInfoModels.add(new RouteInfoModel(i + 1, 60 * (i + 1), 10000 * (i + 1), drawable));
                 i++;
             }
             {
                 drawable = getDrawable(R.drawable.route_yellow);
-                routeInfoModels.add(new RouteInfoModel(i + 1, timeArray[i], countSteps[i], drawable));
+                routeInfoModels.add(new RouteInfoModel(i + 1, 60 * (i + 1), 10000 * (i + 1), drawable));
                 i++;
             }
             {
                 drawable = getDrawable(R.drawable.route_red);
-                routeInfoModels.add(new RouteInfoModel(i + 1, timeArray[i], countSteps[i], drawable));
+                routeInfoModels.add(new RouteInfoModel(i + 1, 60 * (i + 1), 10000 * (i + 1), drawable));
             }
         }
     }
