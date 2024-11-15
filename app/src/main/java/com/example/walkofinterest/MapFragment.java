@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.walkofinterest.utils.Network;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKit;
 import com.yandex.mapkit.MapKitFactory;
@@ -87,7 +88,6 @@ public class MapFragment extends /*AppCompatActivity*/ Fragment {
         super.onStart();
         MapKitFactory.getInstance().onStart();
         mapView.onStart();
-
         mapView.getMap().move(
                 new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),

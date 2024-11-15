@@ -80,7 +80,7 @@
                 android:textSize="@dimen/text_14sp" />
 
             <TextView
-                android:id="@+id/textTo"
+                android:id="@+id/textToLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"

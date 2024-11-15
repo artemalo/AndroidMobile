@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
 
 public class MainActivity extends BaseButtons {
@@ -16,6 +17,9 @@ public class MainActivity extends BaseButtons {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (!Network.isInternetAvailable(this))
+            Network.ShowDialog(this);
 
         TouchTime();
         ImageButton btnProfile = findViewById(R.id.btnProfile);

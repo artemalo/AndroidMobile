@@ -42,12 +42,11 @@
 
         <!--Current Location-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ConstraintLayoutCurrent_Location"
+            android:id="@+id/CLCurrent_Location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="16dp">
+            android:layout_marginTop="@dimen/margin_top"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -114,19 +113,19 @@
 
         <com.shawnlin.numberpicker.NumberPicker
             android:visibility="gone"
-            android:layout_marginBottom="44dp"
-            android:contentDescription="@string/contentDescription_NumPicker"
             android:id="@+id/numPickerTime"
             android:layout_width="139dp"
             android:layout_height="41dp"
+            android:contentDescription="@string/contentDescription_NumPicker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/touchTime"
-            app:layout_constraintTop_toBottomOf="@+id/ConstrainLayoutTo_Location"
+            app:layout_constraintTop_toBottomOf="@+id/CLTo_Location"
+            app:layout_constraintVertical_bias="0.169"
             app:np_dividerColor="@color/gray_for_white_background"
-            app:np_min="0"
 
+            app:np_min="0"
             app:np_orientation="horizontal"
             app:np_selectedTextColor="#FFFFFF"
             app:np_selectedTextSize="24sp"
@@ -135,14 +134,19 @@
 
         <!--To Location-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ConstrainLayoutTo_Location"
+            android:id="@+id/CLTo_Location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/CLCurrent_Location">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginBottom="@dimen/margin_top"
             android:background="@drawable/inputwhite"
-            app:layout_constraintTop_toBottomOf="@+id/ConstraintLayoutCurrent_Location">
-
-
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayoutLocationBlackAlpha"
                 android:layout_width="@dimen/button_small"
@@ -164,7 +168,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/textTo"
+                android:id="@+id/textToLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -177,6 +181,7 @@
                 app:layout_constraintStart_toEndOf="@+id/constraintLayoutLocationBlackAlpha"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/touchTime"
@@ -185,9 +190,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_top"
             android:clickable="true"
-            app:layout_constraintEnd_toEndOf="@+id/ConstrainLayoutTo_Location"
-            app:layout_constraintStart_toStartOf="@+id/ConstrainLayoutTo_Location"
-            app:layout_constraintTop_toBottomOf="@+id/ConstrainLayoutTo_Location">
+            app:layout_constraintEnd_toEndOf="@+id/CLTo_Location"
+            app:layout_constraintStart_toStartOf="@+id/CLTo_Location"
+            app:layout_constraintTop_toBottomOf="@+id/CLTo_Location">
             <!--Time-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="100dp"
