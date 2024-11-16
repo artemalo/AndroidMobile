@@ -1,5 +1,7 @@
 package com.example.walkofinterest;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +13,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
+import com.yandex.mapkit.geometry.Point;
 
 public class MainActivity extends BaseButtons {
+    MapFragment map = new MapFragment();
 
     private ConstraintLayout CLCurrent_Location, CLTo_Location;
     private TextView textCurrentLocation, textToLocation;
     private boolean isSelectingCurrentLocation = false, isSelectingToLocation = false;
-    private boolean isMapInteractionEnabled = false;
 
     FrameLayout btnNext;
 
@@ -47,34 +50,41 @@ public class MainActivity extends BaseButtons {
 
     @SuppressLint("SetTextI18n")
     private void SetUpMap() {
-        MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.map_frag);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.map_frag, map)
+                //.addToBackStack(null)
+                .commit();
 
-        if (mapFragment != null) {
+        MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.map_frag);
+        TwoFields twoFields = new TwoFields();
+
+        if (mapFragment != null)
             mapFragment.setOnPointSelectedListener(point -> {
-                if (isMapInteractionEnabled) {
-                    if (isSelectingCurrentLocation)
+                if (isSelectingCurrentLocation || isSelectingToLocation) {
+                    if (isSelectingCurrentLocation) {
+                        twoFields.SetP1(point);
                         textCurrentLocation.setText(point.getLatitude() + ", " + point.getLongitude());
-                    else if (isSelectingToLocation)
+                    }
+                    else {
+                        twoFields.SetP2(point);
                         textToLocation.setText(point.getLatitude() + ", " + point.getLongitude());
+                    }
                     isSelectingCurrentLocation = false;
                     isSelectingToLocation = false;
 
                     checkIfBothLocationsAreSet();
-                    isMapInteractionEnabled = false;
                 }
             });
-        }
-        // Обработка кликов по полям
+
         CLCurrent_Location.setOnClickListener(v -> {
             Toast.makeText(this, "Выберите текущее местоположение на карте", Toast.LENGTH_SHORT).show();
             isSelectingCurrentLocation = true;
-            isMapInteractionEnabled = true;
         });
 
         CLTo_Location.setOnClickListener(v -> {
             Toast.makeText(this, "Выберите место назначения на карте", Toast.LENGTH_SHORT).show();
             isSelectingToLocation = true;
-            isMapInteractionEnabled = true;
         });
     }
 
@@ -114,5 +124,38 @@ public class MainActivity extends BaseButtons {
             }
             isPickerNotVisible = !isPickerNotVisible;
         });
+    }
+
+    /*@Override
+    public void onPointSelected(Point point, MapObjectCollection mapObjects) {
+        if (mapObjects != null) {
+            // Добавление маркера на карту
+            PlacemarkMapObject placemark = mapObjects.addPlacemark(point);
+
+            // Опционально: установка пользовательской иконки для маркера
+            placemark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.location_onalpha));
+
+            // Можно добавить анимацию появления
+            placemark.setOpacity(0.9f);
+        }
+
+    }*/
+
+    public static class TwoFields{
+        private Point p1 = null, p2 = null;
+
+        public void SetP1(Point p1) {
+            this.p1 = p1;
+        }
+        public void SetP2(Point p2) {
+            this.p2 = p2;
+        }
+
+        public Point GetP1() {
+            return p1;
+        }
+        public Point GetP2() {
+            return p2;
+        }
     }
 }

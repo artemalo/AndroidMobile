@@ -8,7 +8,6 @@ import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.InputListener;
-import com.yandex.mapkit.map.MapObjectCollection;
 import com.yandex.mapkit.mapview.MapView;
 
 import android.view.LayoutInflater;
@@ -26,34 +25,31 @@ public class MapFragment extends  Fragment {
     private OnPointSelectedListener pointSelectedListener;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         MapKitFactory.setApiKey(apiKey);
-        Context context = this.getContext();
-        if (context != null)
-            MapKitFactory.initialize(this.getContext());
+        MapKitFactory.initialize(context);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
     @Override
-    public  void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState){
         mapView = view.findViewById(R.id.mapview);
         mapView.getMap().move(
                 new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
 
-        MapObjectCollection mapObjects = mapView.getMap().getMapObjects();
+
         mapView.getMap().addInputListener(new InputListener() {
             @Override
             public void onMapTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
-                if (pointSelectedListener != null) {
-                    // Передаем точку в MainActivity только если это разрешено
+                if (pointSelectedListener != null)
                     pointSelectedListener.onPointSelected(point);
-                }
             }
 
             @Override
