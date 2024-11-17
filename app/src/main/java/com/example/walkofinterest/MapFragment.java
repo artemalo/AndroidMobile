@@ -13,6 +13,7 @@ import com.yandex.mapkit.mapview.MapView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,11 +25,30 @@ public class MapFragment extends  Fragment {
 
     private OnPointSelectedListener pointSelectedListener;
 
+    /*private final InputListener inputListener = new InputListener() {
+        @Override
+        public void onMapTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
+            if (pointSelectedListener != null)
+                pointSelectedListener.onPointSelected(point);
+        }
+
+        @Override
+        public void onMapLongTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
+        }
+    };*/
+
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         MapKitFactory.setApiKey(apiKey);
         MapKitFactory.initialize(context);
+
+        if (context instanceof OnPointSelectedListener) {
+            pointSelectedListener = (OnPointSelectedListener) context;
+        } else {
+            throw new RuntimeException("Activity must implement OnPointSelectedListener");
+        }
     }
 
     @Override
@@ -43,19 +63,12 @@ public class MapFragment extends  Fragment {
                 new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
-
-
-        mapView.getMap().addInputListener(new InputListener() {
-            @Override
-            public void onMapTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
-                if (pointSelectedListener != null)
-                    pointSelectedListener.onPointSelected(point);
-            }
-
-            @Override
-            public void onMapLongTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
-            }
-        });
+        //mapView.getMap().addInputListener(inputListener);
+    }
+    public com.yandex.mapkit.map.Map getMap() {
+        if (mapView != null)
+            return mapView.getMap();
+        return null;
     }
 
     public void setOnPointSelectedListener(OnPointSelectedListener listener) {
