@@ -3,11 +3,13 @@ package com.example.walkofinterest;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.example.walkofinterest.interfaces.CallBackMap;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.InputListener;
+import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.mapview.MapView;
 
 import android.view.LayoutInflater;
@@ -23,19 +25,20 @@ public class MapFragment extends  Fragment {
 
     private MapView mapView;
 
-    private OnPointSelectedListener pointSelectedListener;
+    private CallBackMap callBackMap;
 
-    /*private final InputListener inputListener = new InputListener() {
+    private final InputListener inputListener = new InputListener() {
         @Override
         public void onMapTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
-            if (pointSelectedListener != null)
-                pointSelectedListener.onPointSelected(point);
+            if (callBackMap != null) {
+                callBackMap.OnPointSelected(point);
+            }
         }
 
         @Override
         public void onMapLongTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
         }
-    };*/
+    };
 
 
     @Override
@@ -44,11 +47,11 @@ public class MapFragment extends  Fragment {
         MapKitFactory.setApiKey(apiKey);
         MapKitFactory.initialize(context);
 
-        if (context instanceof OnPointSelectedListener) {
+        /*if (context instanceof OnPointSelectedListener) {
             pointSelectedListener = (OnPointSelectedListener) context;
         } else {
             throw new RuntimeException("Activity must implement OnPointSelectedListener");
-        }
+        }*/
     }
 
     @Override
@@ -59,20 +62,20 @@ public class MapFragment extends  Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         mapView = view.findViewById(R.id.mapview);
-        mapView.getMap().move(
+        InitMap(mapView);
+    }
+
+    private void InitMap(MapView mapView) {
+        Map map = mapView.getMap();
+        map.move(
                 new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
-        //mapView.getMap().addInputListener(inputListener);
-    }
-    public com.yandex.mapkit.map.Map getMap() {
-        if (mapView != null)
-            return mapView.getMap();
-        return null;
+        map.addInputListener(inputListener);
     }
 
-    public void setOnPointSelectedListener(OnPointSelectedListener listener) {
-        this.pointSelectedListener = listener;
+    public void setOnPointSelected(CallBackMap callBackMap){
+        this.callBackMap = callBackMap;
     }
 
     @Override
@@ -87,9 +90,5 @@ public class MapFragment extends  Fragment {
         mapView.onStop();
         MapKitFactory.getInstance().onStop();
         super.onStop();
-    }
-
-    public interface OnPointSelectedListener {
-        void onPointSelected(Point point);
     }
 }

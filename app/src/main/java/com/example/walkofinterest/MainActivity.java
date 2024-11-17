@@ -12,14 +12,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.walkofinterest.interfaces.CallBackMap;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.InputListener;
 import com.yandex.mapkit.map.Map;
 
-public class MainActivity extends BaseButtons implements MapFragment.OnPointSelectedListener {
-    MapFragment mapFragment = new MapFragment();
+public class MainActivity extends BaseButtons implements CallBackMap {
+
 
     private ConstraintLayout CLCurrent_Location, CLTo_Location;
     private TextView textCurrentLocation, textToLocation;
@@ -27,6 +28,8 @@ public class MainActivity extends BaseButtons implements MapFragment.OnPointSele
 
     FrameLayout btnNext;
 
+    //test-counter
+    int count = 0;
 
     private Boolean isPickerNotVisible = true;
     @Override
@@ -53,15 +56,18 @@ public class MainActivity extends BaseButtons implements MapFragment.OnPointSele
 
     @SuppressLint("SetTextI18n")
     private void SetUpMap() {
+        MapFragment mapFragment = new MapFragment();
+        mapFragment.setOnPointSelected(this);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.map_frag, mapFragment)
                 .commit();
 
-        Context context = this;
+
+        /*Context context = this;
         if (mapFragment != null) {
             Map map = mapFragment.getMap();
-            if (map != null)
+            if (map != null) {//map NULL
                 map.addInputListener(new InputListener() {
                     @Override
                     public void onMapTap(@NonNull Map map, @NonNull Point point) {
@@ -85,7 +91,7 @@ public class MainActivity extends BaseButtons implements MapFragment.OnPointSele
                     @Override
                     public void onMapLongTap(@NonNull Map map, @NonNull Point point) {
                     } });
-            else Log.e("MainActivity", "Map is null");
+            } else Log.e("MainActivity", "Map is null");*/
             /*map.setOnPointSelectedListener(point -> {//Working sometime and stop working ;(
                 Toast.makeText(this, "setOnPointSelectedListener", Toast.LENGTH_SHORT).show();
                 if (isSelectingCurrentLocation || isSelectingToLocation) {
@@ -104,7 +110,7 @@ public class MainActivity extends BaseButtons implements MapFragment.OnPointSele
 
                     //checkIfBothLocationsAreSet();
                 }
-            });*/
+            });
         } else Log.e("MainActivity", "MapFragment is null");
 
         CLCurrent_Location.setOnClickListener(v -> {
@@ -117,7 +123,7 @@ public class MainActivity extends BaseButtons implements MapFragment.OnPointSele
             Toast.makeText(this, "Выберите место назначения на карте", Toast.LENGTH_SHORT).show();
             isSelectingToLocation = true;
             isSelectingCurrentLocation = false;
-        });
+        });*/
     }
 
     /*private void checkIfBothLocationsAreSet() {//-Rework
@@ -159,9 +165,10 @@ public class MainActivity extends BaseButtons implements MapFragment.OnPointSele
     }
 
     @Override
-    public void onPointSelected(Point point) {
-        Log.d("MainActivity", "Point selected: " + point.getLatitude() + ", " + point.getLongitude());
+    public void OnPointSelected(Point point) {
+        Toast.makeText(this, String.valueOf(count++), Toast.LENGTH_SHORT).show();
     }
+
 
     /*@Override
     public void onPointSelected(Point point, MapObjectCollection mapObjects) {
@@ -176,23 +183,5 @@ public class MainActivity extends BaseButtons implements MapFragment.OnPointSele
             placemark.setOpacity(0.9f);
         }
 
-    }*/
-
-    /*public static class TwoFields{
-        private Point p1 = null, p2 = null;
-
-        public void SetP1(Point p1) {
-            this.p1 = p1;
-        }
-        public void SetP2(Point p2) {
-            this.p2 = p2;
-        }
-
-        public Point GetP1() {
-            return p1;
-        }
-        public Point GetP2() {
-            return p2;
-        }
     }*/
 }
