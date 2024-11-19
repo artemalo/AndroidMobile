@@ -30,9 +30,8 @@ public class MapFragment extends  Fragment {
     private final InputListener inputListener = new InputListener() {
         @Override
         public void onMapTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
-            if (callBackMap != null) {
+            if (callBackMap != null)
                 callBackMap.OnPointSelected(point);
-            }
         }
 
         @Override
@@ -46,12 +45,6 @@ public class MapFragment extends  Fragment {
         super.onAttach(context);
         MapKitFactory.setApiKey(apiKey);
         MapKitFactory.initialize(context);
-
-        /*if (context instanceof OnPointSelectedListener) {
-            pointSelectedListener = (OnPointSelectedListener) context;
-        } else {
-            throw new RuntimeException("Activity must implement OnPointSelectedListener");
-        }*/
     }
 
     @Override
@@ -67,8 +60,7 @@ public class MapFragment extends  Fragment {
 
     private void InitMap(MapView mapView) {
         Map map = mapView.getMap();
-        map.move(
-                new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
+        map.move(new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
         map.addInputListener(inputListener);
