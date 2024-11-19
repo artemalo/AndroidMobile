@@ -1,23 +1,18 @@
 package com.example.walkofinterest;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.walkofinterest.interfaces.CallBackMap;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.yandex.mapkit.geometry.Point;
-import com.yandex.mapkit.map.InputListener;
-import com.yandex.mapkit.map.Map;
 
 public class MainActivity extends BaseButtons implements CallBackMap {
 
@@ -27,9 +22,6 @@ public class MainActivity extends BaseButtons implements CallBackMap {
     private boolean isSelectingCurrentLocation = false, isSelectingToLocation = false;
 
     FrameLayout btnNext;
-
-    //test-counter
-    int count = 0;
 
     private Boolean isPickerNotVisible = true;
     @Override
@@ -51,11 +43,11 @@ public class MainActivity extends BaseButtons implements CallBackMap {
         btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(v -> ButtonNext(getNextActivityClass()));
 
-        SetUpMap();
+        SetUpMapFragment();
     }
 
     @SuppressLint("SetTextI18n")
-    private void SetUpMap() {
+    private void SetUpMapFragment() {
         MapFragment mapFragment = new MapFragment();
         mapFragment.setOnPointSelected(this);
         getSupportFragmentManager()
@@ -65,7 +57,6 @@ public class MainActivity extends BaseButtons implements CallBackMap {
 
 
         /*Context context = this;
-        if (mapFragment != null) {
             Map map = mapFragment.getMap();
             if (map != null) {//map NULL
                 map.addInputListener(new InputListener() {
@@ -92,26 +83,23 @@ public class MainActivity extends BaseButtons implements CallBackMap {
                     public void onMapLongTap(@NonNull Map map, @NonNull Point point) {
                     } });
             } else Log.e("MainActivity", "Map is null");*/
-            /*map.setOnPointSelectedListener(point -> {//Working sometime and stop working ;(
-                Toast.makeText(this, "setOnPointSelectedListener", Toast.LENGTH_SHORT).show();
-                if (isSelectingCurrentLocation || isSelectingToLocation) {
-                    if (isSelectingCurrentLocation) {
-                        //twoFields.SetP1(point);
-                        Toast.makeText(this, "point1", Toast.LENGTH_SHORT).show();
-                        textCurrentLocation.setText(point.getLatitude() + ", " + point.getLongitude());
-                    }
-                    else {
-                        //twoFields.SetP2(point);
-                        Toast.makeText(this, "point2", Toast.LENGTH_SHORT).show();
-                        textToLocation.setText(point.getLatitude() + ", " + point.getLongitude());
-                    }
-                    isSelectingCurrentLocation = false;
-                    isSelectingToLocation = false;
-
-                    //checkIfBothLocationsAreSet();
+        mapFragment.setOnPointSelected(point -> {
+            if (isSelectingCurrentLocation || isSelectingToLocation) {
+                if (isSelectingCurrentLocation) {
+                    //twoFields.SetP1(point);
+                    Toast.makeText(this, "point1", Toast.LENGTH_SHORT).show();
+                    textCurrentLocation.setText(point.getLatitude() + ", " + point.getLongitude());
+                } else {
+                    //twoFields.SetP2(point);
+                    Toast.makeText(this, "point2", Toast.LENGTH_SHORT).show();
+                    textToLocation.setText(point.getLatitude() + ", " + point.getLongitude());
                 }
-            });
-        } else Log.e("MainActivity", "MapFragment is null");
+                isSelectingCurrentLocation = false;
+                isSelectingToLocation = false;
+
+                //checkIfBothLocationsAreSet();
+            }
+        });
 
         CLCurrent_Location.setOnClickListener(v -> {
             Toast.makeText(this, "Выберите текущее местоположение на карте", Toast.LENGTH_SHORT).show();
@@ -123,7 +111,7 @@ public class MainActivity extends BaseButtons implements CallBackMap {
             Toast.makeText(this, "Выберите место назначения на карте", Toast.LENGTH_SHORT).show();
             isSelectingToLocation = true;
             isSelectingCurrentLocation = false;
-        });*/
+        });
     }
 
     /*private void checkIfBothLocationsAreSet() {//-Rework
@@ -166,7 +154,7 @@ public class MainActivity extends BaseButtons implements CallBackMap {
 
     @Override
     public void OnPointSelected(Point point) {
-        Toast.makeText(this, String.valueOf(count++), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "sdf", Toast.LENGTH_SHORT).show();
     }
 
 
