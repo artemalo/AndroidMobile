@@ -9,16 +9,16 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.walkofinterest.interfaces.CallBackMap;
+import com.example.walkofinterest.fragments.MapFragment;
+import com.example.walkofinterest.fragments.SelectBSFragment;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
-import com.yandex.mapkit.geometry.Point;
 
 public class MainActivity extends BaseButtons /*implements CallBackMap*/ {
 
 
-    private ConstraintLayout CLCurrent_Location, CLTo_Location;
-    private TextView textCurrentLocation, textToLocation;
+    private ConstraintLayout CLFrom_Location, CLTo_Location;
+    private TextView textFromLocation, textToLocation;
     private boolean isSelectingCurrentLocation = false, isSelectingToLocation = false;
 
     FrameLayout btnNext;
@@ -32,9 +32,9 @@ public class MainActivity extends BaseButtons /*implements CallBackMap*/ {
         if (!Network.isInternetAvailable(this))
             Network.ShowDialog(this);
 
-        CLCurrent_Location = findViewById(R.id.CLCurrent_Location);
+        CLFrom_Location = findViewById(R.id.CLFrom_Location);
         CLTo_Location = findViewById(R.id.CLTo_Location);
-        textCurrentLocation = findViewById(R.id.textCurrentLocation);
+        textFromLocation = findViewById(R.id.textFromLocation);
         textToLocation = findViewById(R.id.textToLocation);
 
         TouchTime();
@@ -58,7 +58,7 @@ public class MainActivity extends BaseButtons /*implements CallBackMap*/ {
             if (isSelectingCurrentLocation || isSelectingToLocation) {
                 if (isSelectingCurrentLocation) {
                     //twoFields.SetP1(point);
-                    textCurrentLocation.setText(point.getLatitude() + ", " + point.getLongitude());
+                    textFromLocation.setText(point.getLatitude() + ", " + point.getLongitude());
                 } else {
                     //twoFields.SetP2(point);
                     textToLocation.setText(point.getLatitude() + ", " + point.getLongitude());
@@ -70,13 +70,19 @@ public class MainActivity extends BaseButtons /*implements CallBackMap*/ {
             }
         });
 
-        CLCurrent_Location.setOnClickListener(v -> {
+        CLFrom_Location.setOnClickListener(v -> {
+            SelectBSFragment bottomSheet = new SelectBSFragment();
+            bottomSheet.show(getSupportFragmentManager(), "SelectCurrentLocation");
+
             Toast.makeText(this, "Выберите текущее местоположение на карте", Toast.LENGTH_SHORT).show();
             isSelectingCurrentLocation = true;
             isSelectingToLocation = false;
         });
 
         CLTo_Location.setOnClickListener(v -> {
+            SelectBSFragment bottomSheet = new SelectBSFragment();
+            bottomSheet.show(getSupportFragmentManager(), "SelectCurrentLocation");
+
             Toast.makeText(this, "Выберите место назначения на карте", Toast.LENGTH_SHORT).show();
             isSelectingToLocation = true;
             isSelectingCurrentLocation = false;

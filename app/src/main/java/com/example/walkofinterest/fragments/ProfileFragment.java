@@ -1,4 +1,4 @@
-package com.example.walkofinterest;
+package com.example.walkofinterest.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.walkofinterest.R;
 
 public class ProfileFragment extends Fragment {
     @Nullable

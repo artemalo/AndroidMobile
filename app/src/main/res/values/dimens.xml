@@ -36,4 +36,5 @@
     <dimen name="text_rating_about_place">48sp</dimen>
     <dimen name="r_btn_onHead">15dp</dimen>
     <dimen name="size_line">5dp</dimen>
+    <dimen name="_18sp">18sp</dimen>
 </resources>

@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.walkofinterest.fragments.ProfileFragment;
+
 public abstract class BaseButtons extends AppCompatActivity {
     protected abstract Class<?> getBackActivityClass();
     protected abstract Class<?> getNextActivityClass();

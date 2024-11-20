@@ -40,7 +40,7 @@
 
         <!--Current Location-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/CLCurrent_Location"
+            android:id="@+id/CLFrom_Location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top"
@@ -58,7 +58,7 @@
                     android:id="@+id/constraintLayoutLocationBlack"
                     android:layout_width="@dimen/button_small"
                     android:layout_height="@dimen/button_small"
-                    android:contentDescription="@string/contentDescription_current_location"
+                    android:contentDescription="@string/contentDescription_from"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -66,7 +66,7 @@
                     <ImageView
                         android:layout_width="@dimen/small_image"
                         android:layout_height="@dimen/small_image"
-                        android:contentDescription="@string/contentDescription_current_location"
+                        android:contentDescription="@string/contentDescription_from"
                         android:src="@drawable/location_onblack"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -75,14 +75,14 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/textCurrentLocation"
+                    android:id="@+id/textFromLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/button_small"
                     android:layout_marginEnd="@dimen/button_fix"
-                    android:text="@string/current_location"
+                    android:text="@string/from_location"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/_18sp"
                     android:singleLine="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +91,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/imageButtonClose"
+                android:id="@+id/btnClear"
                 android:layout_width="@dimen/button_fix"
                 android:layout_height="@dimen/button_fix"
                 android:clickable="true"
@@ -137,7 +137,7 @@
             android:id="@+id/CLTo_Location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/CLCurrent_Location">
+            app:layout_constraintTop_toBottomOf="@+id/CLFrom_Location">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
                 android:id="@+id/constraintLayoutLocationBlackAlpha"
                 android:layout_width="@dimen/button_small"
                 android:layout_height="@dimen/button_small"
-                android:contentDescription="@string/contentDescription_location_to"
+                android:contentDescription="@string/contentDescription_to"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -160,7 +160,7 @@
                     android:layout_width="@dimen/small_image"
                     android:layout_height="@dimen/small_image"
                     android:src="@drawable/location_onalpha"
-                    android:contentDescription="@string/contentDescription_location_to"
+                    android:contentDescription="@string/contentDescription_to"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -173,9 +173,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/button_small"
                 android:layout_marginEnd="@dimen/margin_top"
-                android:text="@string/to"
+                android:text="@string/to_location"
                 android:textColor="@color/gray_for_white_background"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sp"
                 android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -231,7 +231,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="8dp"
                     android:textColor="@color/black_alpha"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/_18sp"
                     android:singleLine="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="parent"

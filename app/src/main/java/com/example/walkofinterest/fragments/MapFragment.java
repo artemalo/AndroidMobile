@@ -1,8 +1,9 @@
-package com.example.walkofinterest;
+package com.example.walkofinterest.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
 
+import com.example.walkofinterest.R;
 import com.example.walkofinterest.interfaces.CallBackMap;
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
@@ -15,7 +16,6 @@ import com.yandex.mapkit.mapview.MapView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

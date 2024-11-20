@@ -35,11 +35,11 @@
                 android:text="@string/from"
                 android:textColor="@color/text_gray" />
             <TextView
-                android:id="@+id/textCurrentLocation"
+                android:id="@+id/textFromLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_14sp"
-                android:text="@string/current_location"
+                android:text="@string/from_location"
                 android:textColor="@color/text_gray"
                 app:layout_constrainedWidth="true"
                 android:singleLine="true"/>
@@ -56,14 +56,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:textSize="@dimen/text_14sp"
-                android:text="@string/to"
+                android:text="@string/to2"
                 android:textColor="@color/white" />
             <TextView
                 android:id="@+id/textToLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_14sp"
-                android:text="@string/to2"
+                android:text="@string/to_location"
                 android:textColor="@color/white"
                 app:layout_constrainedWidth="true"
                 android:singleLine="true"/>
