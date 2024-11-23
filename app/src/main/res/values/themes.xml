@@ -6,8 +6,4 @@
     </style>
 
     <style name="Theme.WalkOfInterest" parent="Base.Theme.WalkOfInterest" />
-
-    <style name="Theme.BottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
-        <item name="backgroundTint">@android:color/transparent</item>
-    </style>
 </resources>

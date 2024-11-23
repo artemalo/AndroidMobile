@@ -12,6 +12,7 @@
         android:layout_height="@dimen/size_line"
         android:layout_marginStart="@dimen/margin_start_end_line"
         android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginBottom="@dimen/margin_top"
         android:layout_marginEnd="@dimen/margin_start_end_line"
         android:background="@drawable/line"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,9 +89,9 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="@drawable/ripple_button"
-        android:layout_marginTop="@dimen/margin_start_end"
-        android:layout_marginBottom="@dimen/margin_start_end"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginBottom="@dimen/margin_top">
         <android.widget.Button
             android:enabled="false"
             android:layout_gravity="center"

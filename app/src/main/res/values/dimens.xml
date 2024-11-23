@@ -37,4 +37,5 @@
     <dimen name="r_btn_onHead">15dp</dimen>
     <dimen name="size_line">5dp</dimen>
     <dimen name="_18sp">18sp</dimen>
+    <dimen name="corner">15dp</dimen>
 </resources>

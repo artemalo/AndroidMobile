@@ -14,7 +14,7 @@ import com.example.walkofinterest.fragments.SelectBSFragment;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
 
-public class MainActivity extends BaseButtons /*implements CallBackMap*/ {
+public class MainActivity extends BaseButtons {
 
 
     private ConstraintLayout CLFrom_Location, CLTo_Location;
@@ -126,12 +126,6 @@ public class MainActivity extends BaseButtons /*implements CallBackMap*/ {
             isPickerNotVisible = !isPickerNotVisible;
         });
     }
-
-    /*@Override
-    public void OnPointSelected(Point point) {
-        Toast.makeText(this, "sdf", Toast.LENGTH_SHORT).show();
-    }*/
-
 
     /*@Override
     public void onPointSelected(Point point, MapObjectCollection mapObjects) {

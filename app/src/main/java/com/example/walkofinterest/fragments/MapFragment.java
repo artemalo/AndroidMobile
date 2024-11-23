@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class MapFragment extends  Fragment {
+public class MapFragment extends Fragment {
     private static final String apiKey = "28da8ea7-c995-4793-b13b-2971cf44e2f0";
 
     private MapView mapView;
