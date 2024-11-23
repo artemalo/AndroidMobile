@@ -69,7 +69,7 @@ public class SelectBSFragment extends BottomSheetDialogFragment {
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         if (getActivity() instanceof OnBottomSheetClosedListener) {
-            ((OnBottomSheetClosedListener) getActivity()).onBottomSheetClosed(isSelectOnMap);
+            ((OnBottomSheetClosedListener) getActivity()).onButtonSelected(isSelectOnMap);
         }
     }
 }

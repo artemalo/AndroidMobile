@@ -89,7 +89,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
     }
 
     @Override
-    public void onBottomSheetClosed(boolean isSelectOnMap) {
+    public void onButtonSelected(boolean isSelectOnMap) {
         this.isSelectOnMap = isSelectOnMap;
     }
 
