@@ -5,21 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.walkofinterest.fragments.MapFragment;
 import com.example.walkofinterest.fragments.SelectBSFragment;
+import com.example.walkofinterest.interfaces.OnBottomSheetClosedListener;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
 
-public class MainActivity extends BaseButtons {
-
-
+public class MainActivity extends BaseButtons implements OnBottomSheetClosedListener {
     private ConstraintLayout CLFrom_Location, CLTo_Location;
     private TextView textFromLocation, textToLocation;
-    private boolean isSelectingCurrentLocation = false, isSelectingToLocation = false;
+    private boolean isCLFrom_Location = false, isCLTo_Location = false;
+    private boolean isSelectOnMap = false;
 
     FrameLayout btnNext;
 
@@ -55,16 +54,16 @@ public class MainActivity extends BaseButtons {
                 .commit();
 
         mapFragment.setOnPointSelected(point -> {
-            if (isSelectingCurrentLocation || isSelectingToLocation) {
-                if (isSelectingCurrentLocation) {
+            if (isSelectOnMap) {
+                if (isCLFrom_Location) {
                     //twoFields.SetP1(point);
                     textFromLocation.setText(point.getLatitude() + ", " + point.getLongitude());
-                } else {
+                } else if (isCLTo_Location) {
                     //twoFields.SetP2(point);
                     textToLocation.setText(point.getLatitude() + ", " + point.getLongitude());
                 }
-                isSelectingCurrentLocation = false;
-                isSelectingToLocation = false;
+                isCLFrom_Location = false;
+                isCLTo_Location = false;
 
                 //checkIfBothLocationsAreSet();
             }
@@ -72,21 +71,26 @@ public class MainActivity extends BaseButtons {
 
         CLFrom_Location.setOnClickListener(v -> {
             SelectBSFragment bottomSheet = new SelectBSFragment();
-            bottomSheet.show(getSupportFragmentManager(), "SelectCurrentLocation");
+            bottomSheet.show(getSupportFragmentManager(), "Выберите место отправление");
 
-            Toast.makeText(this, "Выберите текущее местоположение на карте", Toast.LENGTH_SHORT).show();
-            isSelectingCurrentLocation = true;
-            isSelectingToLocation = false;
+            //Toast.makeText(this, "Выберите текущее местоположение на карте", Toast.LENGTH_SHORT).show();
+            isCLFrom_Location = true;
+            isCLTo_Location = false;
         });
 
         CLTo_Location.setOnClickListener(v -> {
             SelectBSFragment bottomSheet = new SelectBSFragment();
-            bottomSheet.show(getSupportFragmentManager(), "SelectCurrentLocation");
+            bottomSheet.show(getSupportFragmentManager(), "Выберите место назначения");
 
-            Toast.makeText(this, "Выберите место назначения на карте", Toast.LENGTH_SHORT).show();
-            isSelectingToLocation = true;
-            isSelectingCurrentLocation = false;
+            //Toast.makeText(this, "Выберите место назначения на карте", Toast.LENGTH_SHORT).show();
+            isCLTo_Location = true;
+            isCLFrom_Location = false;
         });
+    }
+
+    @Override
+    public void onBottomSheetClosed(boolean isSelectOnMap) {
+        this.isSelectOnMap = isSelectOnMap;
     }
 
     /*private void checkIfBothLocationsAreSet() {//-Rework
@@ -139,6 +143,5 @@ public class MainActivity extends BaseButtons {
             // Можно добавить анимацию появления
             placemark.setOpacity(0.9f);
         }
-
     }*/
 }
