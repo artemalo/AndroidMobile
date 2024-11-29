@@ -31,14 +31,13 @@ public class MapFragment extends Fragment {
         @Override
         public void onMapTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
             if (callBackMap != null)
-                callBackMap.OnPointSelected(point);
+                callBackMap.OnPointSelect(point);
         }
 
         @Override
         public void onMapLongTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
         }
     };
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -49,25 +48,40 @@ public class MapFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_map, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
         mapView = view.findViewById(R.id.mapview);
-        InitMap(mapView);
-    }
+        //InitMap(mapView);
 
-    private void InitMap(MapView mapView) {
         Map map = mapView.getMap();
         map.move(new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
         map.addInputListener(inputListener);
+
+        return view;
     }
+
+    /*@Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        mapView = view.findViewById(R.id.mapview);
+        InitMap(mapView);
+    }*/
+
+    /*private void InitMap(MapView mapView) {
+        Map map = mapView.getMap();
+        map.move(new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
+                new Animation(Animation.Type.SMOOTH, 0),
+                null);
+        map.addInputListener(inputListener);
+    }*/
 
     public void setOnPointSelected(CallBackMap callBackMap){
         this.callBackMap = callBackMap;
+    }
+
+    public MapView getMapView() {
+        return mapView;
     }
 
     @Override

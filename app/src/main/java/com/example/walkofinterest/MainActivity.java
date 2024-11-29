@@ -2,6 +2,7 @@ package com.example.walkofinterest;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -13,12 +14,22 @@ import com.example.walkofinterest.fragments.SelectBSFragment;
 import com.example.walkofinterest.interfaces.OnBottomSheetClosedListener;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
+import com.yandex.mapkit.geometry.Point;
+import com.yandex.mapkit.map.CameraPosition;
+import com.yandex.mapkit.map.MapObjectCollection;
+import com.yandex.mapkit.map.PlacemarkMapObject;
+import com.yandex.mapkit.mapview.MapView;
+import com.yandex.runtime.image.ImageProvider;
 
 public class MainActivity extends BaseButtons implements OnBottomSheetClosedListener {
     private ConstraintLayout CLFrom_Location, CLTo_Location;
     private TextView textFromLocation, textToLocation;
     private boolean isCLFrom_Location = false, isCLTo_Location = false;
     private boolean isSelectOnMap = false;
+
+    private MapFragment mapFragment;
+    private PlacemarkMapObject markFrom, markTo;
+    private MapObjectCollection mapObjects;
 
     FrameLayout btnNext;
 
@@ -47,19 +58,45 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
 
     @SuppressLint("SetTextI18n")
     private void SetUpMapFragment() {
-        MapFragment mapFragment = new MapFragment();
+        mapFragment = new MapFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.map_frag, mapFragment)
                 .commit();
 
+        // Init map objects
+        //mapObjects = mapFragment.getMapView().getMap().getMapObjects();
+
+        /*MapView mapView = mapFragment.getMapView();
+        if (mapView != null) {
+            Log.e("MainActivity", "MapView is NOT null");
+        } else {
+            Log.e("MainActivity", "MapView is null");
+        }*/
+
+        //Метод executePendingTransactions() завершает все отложенные операции с FragmentTransaction.
+        // Это гарантирует, что фрагмент будет добавлен и его жизненный цикл начнётся до того, как вы попытаетесь получить доступ к MapView
+        getSupportFragmentManager().executePendingTransactions();
+        mapFragment.getViewLifecycleOwnerLiveData().observe(this, owner -> {
+            if (owner != null) {
+                MapView mapView = mapFragment.getMapView();
+                if (mapView != null) {
+                    Log.e("MainActivity", "MapView is NOT null");
+                } else {
+                    Log.e("MainActivity", "MapView is null");
+                }
+            }
+        });
+        //mapObjects = mapView.getMap().getMapObjects();
+
+
         mapFragment.setOnPointSelected(point -> {
             if (isSelectOnMap) {
                 if (isCLFrom_Location) {
-                    //twoFields.SetP1(point);
+                    addMark(point, true);
                     textFromLocation.setText(point.getLatitude() + ", " + point.getLongitude());
                 } else if (isCLTo_Location) {
-                    //twoFields.SetP2(point);
+                    addMark(point, false);
                     textToLocation.setText(point.getLatitude() + ", " + point.getLongitude());
                 }
                 isCLFrom_Location = false;
@@ -73,7 +110,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
             SelectBSFragment bottomSheet = new SelectBSFragment();
             bottomSheet.show(getSupportFragmentManager(), "Выберите место отправление");
 
-            //Toast.makeText(this, "Выберите текущее местоположение на карте", Toast.LENGTH_SHORT).show();
+            removeMark(true);
             isCLFrom_Location = true;
             isCLTo_Location = false;
         });
@@ -82,7 +119,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
             SelectBSFragment bottomSheet = new SelectBSFragment();
             bottomSheet.show(getSupportFragmentManager(), "Выберите место назначения");
 
-            //Toast.makeText(this, "Выберите место назначения на карте", Toast.LENGTH_SHORT).show();
+            removeMark(false);
             isCLTo_Location = true;
             isCLFrom_Location = false;
         });
@@ -131,17 +168,26 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         });
     }
 
-    /*@Override
-    public void onPointSelected(Point point, MapObjectCollection mapObjects) {
-        if (mapObjects != null) {
-            // Добавление маркера на карту
-            PlacemarkMapObject placemark = mapObjects.addPlacemark(point);
+    private void addMark(Point point, boolean isFrom) {
+        if (mapFragment != null) {
+            if (isFrom) {
+                markFrom = mapObjects.addPlacemark(point);
+                markFrom.setIcon(ImageProvider.fromResource(this, R.drawable.location_onalpha));
 
-            // Опционально: установка пользовательской иконки для маркера
-            placemark.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.location_onalpha));
-
-            // Можно добавить анимацию появления
-            placemark.setOpacity(0.9f);
+                // Animation
+                //this.placemark.setOpacity(0.9f);
+            }
+            else {
+                markTo = mapObjects.addPlacemark(point);
+                markTo.setIcon(ImageProvider.fromResource(this, R.drawable.location_onalpha));
+            }
         }
-    }*/
+    }
+
+    private void removeMark(boolean isFrom) {
+        if (markFrom != null && isFrom)
+            mapObjects.remove(markFrom);
+        else if (markTo != null && !isFrom)
+            mapObjects.remove(markTo);
+    }
 }
