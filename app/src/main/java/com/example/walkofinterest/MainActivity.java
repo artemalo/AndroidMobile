@@ -15,7 +15,6 @@ import com.example.walkofinterest.interfaces.OnBottomSheetClosedListener;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.yandex.mapkit.geometry.Point;
-import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.MapObjectCollection;
 import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.mapview.MapView;
@@ -28,7 +27,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
     private boolean isSelectOnMap = false;
 
     private MapFragment mapFragment;
-    private PlacemarkMapObject markFrom, markTo;
+    private PlacemarkMapObject placemarkFrom, placemarkTo;
     private MapObjectCollection mapObjects;
 
     FrameLayout btnNext;
@@ -81,7 +80,9 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
             if (owner != null) {
                 MapView mapView = mapFragment.getMapView();
                 if (mapView != null) {
-                    Log.e("MainActivity", "MapView is NOT null");
+                    //Log.e("MainActivity", "MapView is NOT null");
+                    // Init map objects
+                    mapObjects = mapView.getMap().getMapObjects();
                 } else {
                     Log.e("MainActivity", "MapView is null");
                 }
@@ -93,9 +94,11 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         mapFragment.setOnPointSelected(point -> {
             if (isSelectOnMap) {
                 if (isCLFrom_Location) {
+                    removeMark(true);
                     addMark(point, true);
                     textFromLocation.setText(point.getLatitude() + ", " + point.getLongitude());
                 } else if (isCLTo_Location) {
+                    removeMark(false);
                     addMark(point, false);
                     textToLocation.setText(point.getLatitude() + ", " + point.getLongitude());
                 }
@@ -110,7 +113,6 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
             SelectBSFragment bottomSheet = new SelectBSFragment();
             bottomSheet.show(getSupportFragmentManager(), "Выберите место отправление");
 
-            removeMark(true);
             isCLFrom_Location = true;
             isCLTo_Location = false;
         });
@@ -119,7 +121,6 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
             SelectBSFragment bottomSheet = new SelectBSFragment();
             bottomSheet.show(getSupportFragmentManager(), "Выберите место назначения");
 
-            removeMark(false);
             isCLTo_Location = true;
             isCLFrom_Location = false;
         });
@@ -171,23 +172,25 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
     private void addMark(Point point, boolean isFrom) {
         if (mapFragment != null) {
             if (isFrom) {
-                markFrom = mapObjects.addPlacemark(point);
-                markFrom.setIcon(ImageProvider.fromResource(this, R.drawable.location_onalpha));
+                placemarkFrom = mapObjects.addPlacemark(point);
+                placemarkFrom.setIcon(ImageProvider.fromResource(this, R.drawable.mark_from));
 
                 // Animation
                 //this.placemark.setOpacity(0.9f);
             }
             else {
-                markTo = mapObjects.addPlacemark(point);
-                markTo.setIcon(ImageProvider.fromResource(this, R.drawable.location_onalpha));
+                placemarkTo = mapObjects.addPlacemark(point);
+                placemarkTo.setIcon(ImageProvider.fromResource(this, R.drawable.mark_to));
             }
         }
+        else
+            Log.e("MainActivity", "(void addMark)mapFragment is null");
     }
 
     private void removeMark(boolean isFrom) {
-        if (markFrom != null && isFrom)
-            mapObjects.remove(markFrom);
-        else if (markTo != null && !isFrom)
-            mapObjects.remove(markTo);
+        if (placemarkFrom != null && isFrom)
+            mapObjects.remove(placemarkFrom);
+        else if (placemarkTo != null && !isFrom)
+            mapObjects.remove(placemarkTo);
     }
 }
