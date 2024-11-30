@@ -51,9 +51,8 @@ public class MapFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         mapView = view.findViewById(R.id.mapview);
-        //InitMap(mapView);
 
-        Map map = mapView.getMap();
+        Map map = mapView.getMapWindow().getMap();
         map.move(new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
@@ -61,20 +60,6 @@ public class MapFragment extends Fragment {
 
         return view;
     }
-
-    /*@Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        mapView = view.findViewById(R.id.mapview);
-        InitMap(mapView);
-    }*/
-
-    /*private void InitMap(MapView mapView) {
-        Map map = mapView.getMap();
-        map.move(new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
-                new Animation(Animation.Type.SMOOTH, 0),
-                null);
-        map.addInputListener(inputListener);
-    }*/
 
     public void setOnPointSelected(CallBackMap callBackMap){
         this.callBackMap = callBackMap;
