@@ -38,4 +38,5 @@
     <dimen name="size_line">5dp</dimen>
     <dimen name="_18sp">18sp</dimen>
     <dimen name="corner">15dp</dimen>
+    <dimen name="radius_btn_next">30dp</dimen>
 </resources>

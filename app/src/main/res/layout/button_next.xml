@@ -1,5 +1,5 @@
 <FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/btnNext"
+    android:id="@+id/btnNextFrame"
     android:layout_width="@dimen/button_width"
     android:layout_height="@dimen/button_fix"
     android:clickable="true"
@@ -8,6 +8,7 @@
     android:layout_marginTop="@dimen/margin_start_end"
     android:layout_marginBottom="@dimen/margin_start_end">
     <android.widget.Button
+        android:id="@+id/btnNext"
         android:enabled="false"
         android:layout_gravity="center"
         android:layout_width="@dimen/button_width"

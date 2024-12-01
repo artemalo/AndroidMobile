@@ -1,13 +1,16 @@
 package com.example.walkofinterest;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.example.walkofinterest.fragments.MapFragment;
 import com.example.walkofinterest.fragments.SelectBSFragment;
@@ -30,7 +33,8 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
     private PlacemarkMapObject placemarkFrom, placemarkTo;
     private MapObjectCollection mapObjects;
 
-    FrameLayout btnNext;
+    FrameLayout btnNextFrame;
+    Button btnNext;
 
     private Boolean isPickerNotVisible = true;
     @Override
@@ -49,10 +53,22 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         TouchTime();
         findViewById(R.id.btnProfile).setOnClickListener(v -> ButtonProfile());
 
+        btnNextFrame = findViewById(R.id.btnNextFrame);
         btnNext = findViewById(R.id.btnNext);
-        btnNext.setOnClickListener(v -> ButtonNext(getNextActivityClass()));
+        btnNextFrame.setOnClickListener(v -> ButtonNext(getNextActivityClass()));
+        ButtonOff(btnNextFrame, btnNext);
 
         SetUpMapFragment();
+    }
+
+    private void ButtonOn(FrameLayout btnFrame, Button btn){
+        btnFrame.setClickable(true);
+        btn.setBackgroundResource(R.drawable.button_next_green);
+    }
+
+    private void ButtonOff(FrameLayout btnFrame, Button btn){
+        btnFrame.setClickable(false);
+        btn.setBackgroundResource(R.drawable.button_next_gray);
     }
 
     @SuppressLint("SetTextI18n")
@@ -77,6 +93,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         // Это гарантирует, что фрагмент будет добавлен и его жизненный цикл начнётся до того, как вы попытаетесь получить доступ к MapView
         getSupportFragmentManager().executePendingTransactions();
         mapFragment.getViewLifecycleOwnerLiveData().observe(this, owner -> {
+            Log.d("Lifecycle", "MapFragment ViewLifecycleOwner initialized");
             if (owner != null) {
                 MapView mapView = mapFragment.getMapView();
                 if (mapView != null) {
@@ -104,9 +121,9 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
                 }
                 isCLFrom_Location = false;
                 isCLTo_Location = false;
-
-                //checkIfBothLocationsAreSet();
             }
+            if (placemarkFrom != null && placemarkTo != null)
+                ButtonOn(btnNextFrame, btnNext);
         });
 
         CLFrom_Location.setOnClickListener(v -> {
