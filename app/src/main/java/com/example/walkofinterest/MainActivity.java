@@ -1,7 +1,6 @@
 package com.example.walkofinterest;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 
 import com.example.walkofinterest.fragments.MapFragment;
 import com.example.walkofinterest.fragments.SelectBSFragment;
@@ -99,7 +97,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
                 if (mapView != null) {
                     //Log.e("MainActivity", "MapView is NOT null");
                     // Init map objects
-                    mapObjects = mapView.getMap().getMapObjects();
+                    mapObjects = mapView.getMapWindow().getMap().getMapObjects();
                 } else {
                     Log.e("MainActivity", "MapView is null");
                 }
@@ -187,21 +185,11 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
     }
 
     private void addMark(Point point, boolean isFrom) {
-        if (mapFragment != null) {
-            if (isFrom) {
-                placemarkFrom = mapObjects.addPlacemark(point);
-                placemarkFrom.setIcon(ImageProvider.fromResource(this, R.drawable.mark_from));
-
-                // Animation
-                //this.placemark.setOpacity(0.9f);
-            }
-            else {
-                placemarkTo = mapObjects.addPlacemark(point);
-                placemarkTo.setIcon(ImageProvider.fromResource(this, R.drawable.mark_to));
-            }
-        }
-        else
-            Log.e("MainActivity", "(void addMark)mapFragment is null");
+        if (mapFragment != null)
+            if (isFrom)
+                placemarkFrom = MapFragment.addMark(mapObjects, point, ImageProvider.fromResource(this, R.drawable.mark_from));
+            else
+                placemarkTo = MapFragment.addMark(mapObjects, point, ImageProvider.fromResource(this, R.drawable.mark_to));
     }
 
     private void removeMark(boolean isFrom) {
