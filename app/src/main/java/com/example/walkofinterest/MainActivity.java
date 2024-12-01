@@ -9,7 +9,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.example.walkofinterest.fragments.MapFragment;
 import com.example.walkofinterest.fragments.SelectBSFragment;
 import com.example.walkofinterest.interfaces.OnBottomSheetClosedListener;
@@ -77,34 +76,20 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
                 .replace(R.id.map_frag, mapFragment)
                 .commit();
 
-        // Init map objects
-        //mapObjects = mapFragment.getMapView().getMap().getMapObjects();
-
-        /*MapView mapView = mapFragment.getMapView();
-        if (mapView != null) {
-            Log.e("MainActivity", "MapView is NOT null");
-        } else {
-            Log.e("MainActivity", "MapView is null");
-        }*/
-
-        //Метод executePendingTransactions() завершает все отложенные операции с FragmentTransaction.
-        // Это гарантирует, что фрагмент будет добавлен и его жизненный цикл начнётся до того, как вы попытаетесь получить доступ к MapView
+        // Wait init mapFragment
         getSupportFragmentManager().executePendingTransactions();
         mapFragment.getViewLifecycleOwnerLiveData().observe(this, owner -> {
             Log.d("Lifecycle", "MapFragment ViewLifecycleOwner initialized");
             if (owner != null) {
                 MapView mapView = mapFragment.getMapView();
                 if (mapView != null) {
-                    //Log.e("MainActivity", "MapView is NOT null");
-                    // Init map objects
+                    // Init mapObjects
                     mapObjects = mapView.getMapWindow().getMap().getMapObjects();
                 } else {
                     Log.e("MainActivity", "MapView is null");
                 }
             }
         });
-        //mapObjects = mapView.getMap().getMapObjects();
-
 
         mapFragment.setOnPointSelected(point -> {
             if (isSelectOnMap) {
@@ -141,28 +126,6 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         });
     }
 
-    @Override
-    public void onButtonSelected(boolean isSelectOnMap) {
-        this.isSelectOnMap = isSelectOnMap;
-    }
-
-    /*private void checkIfBothLocationsAreSet() {//-Rework
-        if (!textToLocation.getText().toString().isEmpty() && !textToLocation.getText().toString().isEmpty())
-            btnNext.setVisibility(View.VISIBLE);
-        else
-            btnNext.setVisibility(View.GONE);
-    }*/
-
-    @Override
-    protected Class<?> getBackActivityClass() {
-        return null;
-    }
-
-    @Override
-    protected Class<?> getNextActivityClass() {
-        return CategoriesActivity.class;
-    }
-
     private void TouchTime() {
         ConstraintLayout touchTime = findViewById(R.id.touchTime);
         NumberPicker numPickerTime = findViewById(R.id.numPickerTime);
@@ -197,5 +160,20 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
             mapObjects.remove(placemarkFrom);
         else if (placemarkTo != null && !isFrom)
             mapObjects.remove(placemarkTo);
+    }
+
+    @Override
+    public void onButtonSelected(boolean isSelectOnMap) {
+        this.isSelectOnMap = isSelectOnMap;
+    }
+
+    @Override
+    protected Class<?> getBackActivityClass() {
+        return null;
+    }
+
+    @Override
+    protected Class<?> getNextActivityClass() {
+        return CategoriesActivity.class;
     }
 }

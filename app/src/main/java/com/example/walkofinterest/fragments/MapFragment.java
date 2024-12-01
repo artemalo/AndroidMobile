@@ -1,6 +1,7 @@
 package com.example.walkofinterest.fragments;
 
 import android.content.Context;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
+import com.yandex.mapkit.map.IconStyle;
 import com.yandex.mapkit.map.InputListener;
 import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.map.MapObjectCollection;
@@ -45,7 +47,9 @@ public class MapFragment extends Fragment {
         PlacemarkMapObject mark = mapObjects.addPlacemark();
         mark.setGeometry(point);
         mark.setIcon(imageProvider);
-        mark.setOpacity(0.9f);
+        mark.setIconStyle(new IconStyle().setAnchor(new PointF(0.5f,0.9f)));
+
+        //mark.setOpacity(0.9f);
         return mark;
     }
 
@@ -63,6 +67,7 @@ public class MapFragment extends Fragment {
         mapView = view.findViewById(R.id.mapview);
 
         Map map = mapView.getMapWindow().getMap();
+        map.setNightModeEnabled(true);
         map.move(new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
