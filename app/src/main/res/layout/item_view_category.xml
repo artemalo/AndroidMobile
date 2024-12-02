@@ -31,16 +31,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.33" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:background="@drawable/shadow"
-                android:buttonTint="@color/white_green"
-                android:checked="false"
-                android:clickable="false"
+            <FrameLayout
+                android:id="@+id/frame_checkBox"
+                android:layout_width="@dimen/button_fix"
+                android:layout_height="@dimen/button_fix"
+                android:clickable="true"
                 app:layout_constraintStart_toStartOf="@+id/imageCategory"
-                app:layout_constraintTop_toTopOf="@+id/imageCategory" />
+                app:layout_constraintTop_toTopOf="@+id/imageCategory">
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/shadow"
+                    android:buttonTint="@color/white_green"
+                    android:checked="false"
+                    android:clickable="false" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="0dp"

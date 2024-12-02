@@ -1,8 +1,7 @@
 package com.example.walkofinterest;
 
 import android.os.Bundle;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,17 +23,16 @@ public class CategoriesActivity extends BaseButtons {
         setContentView(R.layout.activity_categories);
 
         SetCategories();
-        ImageButton btnProfile = findViewById(R.id.btnProfile);
-        if (btnProfile != null)
-            btnProfile.setOnClickListener(v -> ButtonProfile());
 
-        ImageButton btnBack = findViewById(R.id.btnBack);
-        if (btnBack != null)
-            btnBack.setOnClickListener(v -> ButtonBack(getBackActivityClass()));
-
-        FrameLayout btnNextFrame = findViewById(R.id.btnNextFrame);
-        if (btnNextFrame != null)
-            btnNextFrame.setOnClickListener(v -> ButtonNext(getNextActivityClass()));
+        findViewById(R.id.btnProfile).setOnClickListener(v -> {
+            int count = 0;
+            for (int i = 0; i < categoryModels.size(); i++)
+                if (categoryModels.get(i).isChecked()) count++;
+            Toast.makeText(this, String.valueOf(count), Toast.LENGTH_SHORT).show();
+            ButtonProfile();
+        });
+        findViewById(R.id.btnBack).setOnClickListener(v -> ButtonBack(getBackActivityClass()));
+        findViewById(R.id.btnNextFrame).setOnClickListener(v -> ButtonNext(getNextActivityClass()));
     }
 
     @Override

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +39,11 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.My
         holder.tvName.setText(categoryModels.get(position).getName());
         holder.tvDescription.setText(categoryModels.get(position).getDescription());
         holder.imageView.setImageResource(categoryModels.get(position).getImage());
+        holder.frame_checkBox.setOnClickListener(v -> {
+            boolean isChecked = holder.checkBox.isChecked();
+            holder.checkBox.setChecked(!isChecked);
+            categoryModels.get(position).setChecked(!isChecked);
+        });
     }
 
     @Override
@@ -48,12 +55,17 @@ public class CategoryRVAdapter extends RecyclerView.Adapter<CategoryRVAdapter.My
         ImageView imageView;
         TextView tvName, tvDescription;
 
+        FrameLayout frame_checkBox;
+        CheckBox checkBox;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.imageCategory);
             tvName = itemView.findViewById(R.id.nameCategory);
             tvDescription = itemView.findViewById(R.id.descriptionCategory);
+            frame_checkBox = itemView.findViewById(R.id.frame_checkBox);
+            checkBox = itemView.findViewById(R.id.checkBox);
 
         }
     }

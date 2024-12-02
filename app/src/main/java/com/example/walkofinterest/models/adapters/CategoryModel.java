@@ -4,6 +4,7 @@ public class CategoryModel {
     String name;
     String description;
     int image;
+    boolean isChecked;
 
     public CategoryModel(String name, String description, int image) {
         this.name = name;
@@ -21,5 +22,13 @@ public class CategoryModel {
 
     public int getImage() {
         return image;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean isSelected) {
+        this.isChecked = isSelected;
     }
 }

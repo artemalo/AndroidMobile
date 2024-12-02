@@ -162,6 +162,14 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
             mapObjects.remove(placemarkTo);
     }
 
+    public PlacemarkMapObject getPlacemarkFrom() {
+        return placemarkFrom;
+    }
+
+    public PlacemarkMapObject getPlacemarkTo() {
+        return placemarkTo;
+    }
+
     @Override
     public void onButtonSelected(boolean isSelectOnMap) {
         this.isSelectOnMap = isSelectOnMap;
