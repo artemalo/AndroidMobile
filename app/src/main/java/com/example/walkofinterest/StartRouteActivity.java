@@ -1,22 +1,35 @@
 package com.example.walkofinterest;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.walkofinterest.fragments.MapFragment;
 import com.example.walkofinterest.models.adapters.RouteInfoModel;
 import com.example.walkofinterest.models.adapters.RouteInfoRVAdapter;
+import com.example.walkofinterest.structures.MyPoint;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.yandex.mapkit.geometry.Point;
+import com.yandex.mapkit.map.MapObjectCollection;
+import com.yandex.mapkit.map.PlacemarkMapObject;
+import com.yandex.mapkit.mapview.MapView;
+import com.yandex.runtime.image.ImageProvider;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class StartRouteActivity extends BaseButtons{
-    ArrayList<RouteInfoModel> routeInfoModels = new ArrayList<>();
+    protected ArrayList<RouteInfoModel> routeInfoModels = new ArrayList<>();
+
+    private MapFragment mapFragment;
+    private MapObjectCollection mapObjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +40,50 @@ public class StartRouteActivity extends BaseButtons{
 
         findViewById(R.id.btnProfile).setOnClickListener(v -> ButtonProfile());
         findViewById(R.id.btnBack).setOnClickListener(v -> ButtonBack(getBackActivityClass()));
+
+        SetUpMapFragment();
+    }
+
+    private void SetUpMapFragment() {
+        //MainActivity.Stop();
+
+        mapFragment = new MapFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.map_frag, mapFragment)
+                .commit();
+
+        // Wait init mapFragment
+        getSupportFragmentManager().executePendingTransactions();
+        mapFragment.getViewLifecycleOwnerLiveData().observe(this, owner -> {
+            Log.d("Lifecycle", "MapFragment ViewLifecycleOwner initialized");
+            if (owner != null) {
+                MapView mapView = mapFragment.getMapView();
+                if (mapView != null) {
+                    // Init mapObjects
+                    mapObjects = mapView.getMapWindow().getMap().getMapObjects();
+                } else {
+                    Log.e("StartRouteActivity", "MapView is null");
+                }
+            }
+            else
+                Log.e("StartRouteActivity", "owner is null");
+        });
+
+        Intent intent = getIntent();
+        MyPoint myPointFrom = intent.getParcelableExtra("pointFrom");
+        MyPoint myPointTo = intent.getParcelableExtra("pointTo");
+        if (myPointFrom != null && myPointTo != null) {//NonNull
+            Point pointFrom = myPointFrom.getPoint();
+            Point pointTo = myPointTo.getPoint();
+            PlacemarkMapObject placemarkFrom, placemarkTo;
+            if (mapObjects != null) {
+                placemarkFrom = MapFragment.addMark(mapObjects, pointFrom, ImageProvider.fromResource(this, R.drawable.mark_to));
+                placemarkTo = MapFragment.addMark(mapObjects, pointTo, ImageProvider.fromResource(this, R.drawable.mark_to));
+            }
+            else Log.e("StartRouteActivity", "mapObjects is null");
+        }
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -37,8 +94,7 @@ public class StartRouteActivity extends BaseButtons{
         BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         findViewById(R.id.recyclerViewRouteInformation).setOnTouchListener((v, event) -> {
-            switch (event.getAction())
-            {
+            switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                 case MotionEvent.ACTION_MOVE:
                     bottomSheetBehavior.setDraggable(false);

@@ -12,8 +12,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.walkofinterest.fragments.MapFragment;
 import com.example.walkofinterest.fragments.SelectBSFragment;
 import com.example.walkofinterest.interfaces.OnBottomSheetClosedListener;
+import com.example.walkofinterest.structures.MyPoint;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
+import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.MapObjectCollection;
 import com.yandex.mapkit.map.PlacemarkMapObject;
@@ -21,12 +23,14 @@ import com.yandex.mapkit.mapview.MapView;
 import com.yandex.runtime.image.ImageProvider;
 
 public class MainActivity extends BaseButtons implements OnBottomSheetClosedListener {
+    private static final String apiKey = "28da8ea7-c995-4793-b13b-2971cf44e2f0";
+
     private ConstraintLayout CLFrom_Location, CLTo_Location;
     private TextView textFromLocation, textToLocation;
     private boolean isCLFrom_Location = false, isCLTo_Location = false;
     private boolean isSelectOnMap = false;
 
-    private MapFragment mapFragment;
+    static private MapFragment mapFragment;
     private PlacemarkMapObject placemarkFrom, placemarkTo;
     private MapObjectCollection mapObjects;
 
@@ -34,8 +38,12 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
     Button btnNext;
 
     private Boolean isPickerNotVisible = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MapKitFactory.setApiKey(apiKey);
+        MapKitFactory.initialize(this);
+        MapKitFactory.getInstance().resetLocationManagerToDefault();//Block Current Location
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -52,10 +60,17 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
 
         btnNextFrame = findViewById(R.id.btnNextFrame);
         btnNext = findViewById(R.id.btnNext);
-        btnNextFrame.setOnClickListener(v -> ButtonNext(getNextActivityClass()));
+        btnNextFrame.setOnClickListener(v -> ButtonNext(getNextActivityClass(),
+                new MyPoint(placemarkFrom.getGeometry()),
+                new MyPoint(placemarkTo.getGeometry())));
         ButtonOff(btnNextFrame, btnNext);
 
         SetUpMapFragment();
+    }
+
+    static public void Stop(){
+        mapFragment.onStop();
+        mapFragment.onDestroy();
     }
 
     private void ButtonOn(FrameLayout btnFrame, Button btn){
@@ -160,14 +175,6 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
             mapObjects.remove(placemarkFrom);
         else if (placemarkTo != null && !isFrom)
             mapObjects.remove(placemarkTo);
-    }
-
-    public PlacemarkMapObject getPlacemarkFrom() {
-        return placemarkFrom;
-    }
-
-    public PlacemarkMapObject getPlacemarkTo() {
-        return placemarkTo;
     }
 
     @Override

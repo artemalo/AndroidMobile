@@ -1,6 +1,8 @@
 package com.example.walkofinterest;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.walkofinterest.models.adapters.CategoryRVAdapter;
 import com.example.walkofinterest.models.adapters.CategoryModel;
+import com.example.walkofinterest.structures.MyPoint;
+import com.yandex.mapkit.geometry.Point;
 
 import java.util.ArrayList;
 
@@ -32,7 +36,29 @@ public class CategoriesActivity extends BaseButtons {
             ButtonProfile();
         });
         findViewById(R.id.btnBack).setOnClickListener(v -> ButtonBack(getBackActivityClass()));
-        findViewById(R.id.btnNextFrame).setOnClickListener(v -> ButtonNext(getNextActivityClass()));
+
+        Intent intent = getIntent();
+        /* NonNull!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! There was test
+        MyPoint myPointFrom = intent.getParcelableExtra("pointFrom");
+        if (myPointFrom != null) {
+            Point point = myPointFrom.getPoint(); // Преобразование обратно в Yandex Point
+            Log.d("PointDataFrom", "Latitude: " + point.getLatitude() + ", Longitude: " + point.getLongitude());
+        }
+        else
+            Log.d("PointDataFrom", "null");
+
+        MyPoint myPointTo = intent.getParcelableExtra("pointTo");
+        if (myPointTo != null) {
+            Point point = myPointTo.getPoint(); // Преобразование обратно в Yandex Point
+            Log.d("PointDataTo", "Latitude: " + point.getLatitude() + ", Longitude: " + point.getLongitude());
+        }
+        else
+            Log.d("PointDataTo", "null");*/
+
+        findViewById(R.id.btnNextFrame).setOnClickListener(v -> ButtonNext(getNextActivityClass(),
+                intent.getParcelableExtra("pointFrom"),
+                intent.getParcelableExtra("pointTo")
+        ));
     }
 
     @Override

@@ -25,7 +25,6 @@ import com.yandex.mapkit.mapview.MapView;
 import com.yandex.runtime.image.ImageProvider;
 
 public class MapFragment extends Fragment {
-    private static final String apiKey = "28da8ea7-c995-4793-b13b-2971cf44e2f0";
 
     private MapView mapView;
 
@@ -56,8 +55,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        MapKitFactory.setApiKey(apiKey);
-        MapKitFactory.initialize(context);
+
     }
 
     @Override

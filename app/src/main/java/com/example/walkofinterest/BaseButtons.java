@@ -2,12 +2,14 @@ package com.example.walkofinterest;
 
 import android.content.Intent;
 
-
+import com.example.walkofinterest.structures.MyPoint;
+import com.yandex.mapkit.geometry.Point;
 import androidx.annotation.Nullable;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.walkofinterest.fragments.ProfileFragment;
+
+import java.io.Serializable;
 
 public abstract class BaseButtons extends AppCompatActivity {
     protected abstract Class<?> getBackActivityClass();
@@ -30,9 +32,11 @@ public abstract class BaseButtons extends AppCompatActivity {
         }
     }
 
-    protected void ButtonNext (Class<?> cls) {
+    protected void ButtonNext (Class<?> cls, MyPoint pointFrom, MyPoint pointTo) {
         Intent intent = new Intent(this, cls);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.putExtra("pointFrom", pointFrom);
+        intent.putExtra("pointTo", pointTo);
         startActivity(intent);
     }
 }
