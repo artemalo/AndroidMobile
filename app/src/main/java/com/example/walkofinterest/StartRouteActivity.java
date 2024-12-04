@@ -18,12 +18,10 @@ import com.example.walkofinterest.structures.MyPoint;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.MapObjectCollection;
-import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.mapview.MapView;
 import com.yandex.runtime.image.ImageProvider;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class StartRouteActivity extends BaseButtons{
     protected ArrayList<RouteInfoModel> routeInfoModels = new ArrayList<>();
@@ -39,7 +37,10 @@ public class StartRouteActivity extends BaseButtons{
         SetBottomSheet();
 
         findViewById(R.id.btnProfile).setOnClickListener(v -> ButtonProfile());
-        findViewById(R.id.btnBack).setOnClickListener(v -> ButtonBack(getBackActivityClass()));
+        findViewById(R.id.btnBack).setOnClickListener(v -> {
+            ButtonBack(getBackActivityClass());
+            finish();
+        });
 
         SetUpMapFragment();
     }
@@ -56,12 +57,21 @@ public class StartRouteActivity extends BaseButtons{
         // Wait init mapFragment
         getSupportFragmentManager().executePendingTransactions();
         mapFragment.getViewLifecycleOwnerLiveData().observe(this, owner -> {
-            Log.d("Lifecycle", "MapFragment ViewLifecycleOwner initialized");
+            Log.d("StartRouteActivity", "MapFragment ViewLifecycleOwner initialized");
             if (owner != null) {
                 MapView mapView = mapFragment.getMapView();
                 if (mapView != null) {
-                    // Init mapObjects
                     mapObjects = mapView.getMapWindow().getMap().getMapObjects();
+
+                    Intent intent = getIntent();
+                    MyPoint myPointFrom = intent.getParcelableExtra("pointFrom");
+                    MyPoint myPointTo = intent.getParcelableExtra("pointTo");
+                    if (myPointFrom != null && myPointTo != null) {//NonNull
+                        Point pointFrom = myPointFrom.getPoint();
+                        Point pointTo = myPointTo.getPoint();
+                        MapFragment.addMark(mapObjects, pointFrom, ImageProvider.fromResource(this, R.drawable.mark_to));
+                        MapFragment.addMark(mapObjects, pointTo, ImageProvider.fromResource(this, R.drawable.mark_to));
+                    }
                 } else {
                     Log.e("StartRouteActivity", "MapView is null");
                 }
@@ -70,19 +80,7 @@ public class StartRouteActivity extends BaseButtons{
                 Log.e("StartRouteActivity", "owner is null");
         });
 
-        Intent intent = getIntent();
-        MyPoint myPointFrom = intent.getParcelableExtra("pointFrom");
-        MyPoint myPointTo = intent.getParcelableExtra("pointTo");
-        if (myPointFrom != null && myPointTo != null) {//NonNull
-            Point pointFrom = myPointFrom.getPoint();
-            Point pointTo = myPointTo.getPoint();
-            PlacemarkMapObject placemarkFrom, placemarkTo;
-            if (mapObjects != null) {
-                placemarkFrom = MapFragment.addMark(mapObjects, pointFrom, ImageProvider.fromResource(this, R.drawable.mark_to));
-                placemarkTo = MapFragment.addMark(mapObjects, pointTo, ImageProvider.fromResource(this, R.drawable.mark_to));
-            }
-            else Log.e("StartRouteActivity", "mapObjects is null");
-        }
+
 
     }
 

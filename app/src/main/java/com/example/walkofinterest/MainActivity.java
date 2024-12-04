@@ -50,6 +50,8 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         if (!Network.isInternetAvailable(this))
             Network.ShowDialog(this);
 
+        MapFragment.requestPermLocation(this, this);
+
         CLFrom_Location = findViewById(R.id.CLFrom_Location);
         CLTo_Location = findViewById(R.id.CLTo_Location);
         textFromLocation = findViewById(R.id.textFromLocation);

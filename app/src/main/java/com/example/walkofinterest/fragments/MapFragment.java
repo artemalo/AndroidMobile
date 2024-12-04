@@ -1,15 +1,22 @@
 package com.example.walkofinterest.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import com.example.walkofinterest.R;
 import com.example.walkofinterest.interfaces.CallBackMap;
 import com.yandex.mapkit.Animation;
@@ -26,6 +33,8 @@ import com.yandex.runtime.image.ImageProvider;
 
 public class MapFragment extends Fragment {
 
+    private static final int INITIAL_REQUEST = 1340;
+
     private MapView mapView;
 
     private CallBackMap callBackMap;
@@ -41,6 +50,21 @@ public class MapFragment extends Fragment {
         public void onMapLongTap(@NonNull com.yandex.mapkit.map.Map map, @NonNull Point point) {
         }
     };
+
+    public static void requestPermLocation(Context context, Activity activity) {
+        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+            //googleMap.setMyLocationEnabled(true);
+            //googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        } else {
+            ActivityCompat.requestPermissions(activity, new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                    INITIAL_REQUEST);
+        }
+    }
 
     public static PlacemarkMapObject addMark(MapObjectCollection mapObjects, Point point, ImageProvider imageProvider){
         PlacemarkMapObject mark = mapObjects.addPlacemark();
