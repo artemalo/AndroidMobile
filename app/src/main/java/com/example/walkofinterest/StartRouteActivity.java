@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.walkofinterest.fragments.MapFragment;
 import com.example.walkofinterest.models.adapters.RouteInfoModel;
 import com.example.walkofinterest.models.adapters.RouteInfoRVAdapter;
-import com.example.walkofinterest.structures.MyPoint;
+import com.example.walkofinterest.structures.MyPoints;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.MapObjectCollection;
@@ -30,17 +30,21 @@ public class StartRouteActivity extends BaseButtons{
     private MapObjectCollection mapObjects;
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("Lifecycle", "onDestroy " + this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("Lifecycle", "onCreate " + this);
         setContentView(R.layout.activity_start_route);
 
         SetBottomSheet();
 
         findViewById(R.id.btnProfile).setOnClickListener(v -> ButtonProfile());
-        findViewById(R.id.btnBack).setOnClickListener(v -> {
-            ButtonBack(getBackActivityClass());
-            finish();
-        });
+        findViewById(R.id.btnBack).setOnClickListener(v -> ButtonBack(getBackActivityClass()));
 
         SetUpMapFragment();
     }
@@ -64,11 +68,11 @@ public class StartRouteActivity extends BaseButtons{
                     mapObjects = mapView.getMapWindow().getMap().getMapObjects();
 
                     Intent intent = getIntent();
-                    MyPoint myPointFrom = intent.getParcelableExtra("pointFrom");
-                    MyPoint myPointTo = intent.getParcelableExtra("pointTo");
-                    if (myPointFrom != null && myPointTo != null) {//NonNull
-                        Point pointFrom = myPointFrom.getPoint();
-                        Point pointTo = myPointTo.getPoint();
+                    MyPoints points = intent.getParcelableExtra("points");
+                    //MyPoints myPointTo = intent.getParcelableExtra("pointTo");
+                    if (points != null) {//NonNull
+                        Point pointFrom = points.getFrom();
+                        Point pointTo = points.getTo();
                         MapFragment.addMark(mapObjects, pointFrom, ImageProvider.fromResource(this, R.drawable.mark_to));
                         MapFragment.addMark(mapObjects, pointTo, ImageProvider.fromResource(this, R.drawable.mark_to));
                     }

@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.widget.Toast;
+
 import com.example.walkofinterest.R;
 import com.example.walkofinterest.interfaces.CallBackMap;
 import com.yandex.mapkit.Animation;
@@ -52,17 +54,16 @@ public class MapFragment extends Fragment {
     };
 
     public static void requestPermLocation(Context context, Activity activity) {
-        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) !=
                         PackageManager.PERMISSION_GRANTED) {
-            //googleMap.setMyLocationEnabled(true);
-            //googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        } else {
             ActivityCompat.requestPermissions(activity, new String[] {
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION },
                     INITIAL_REQUEST);
+        } else {
+            Toast.makeText(context, "Location access is allowed", Toast.LENGTH_SHORT).show();
         }
     }
 

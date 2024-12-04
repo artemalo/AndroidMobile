@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.walkofinterest.models.adapters.CategoryRVAdapter;
 import com.example.walkofinterest.models.adapters.CategoryModel;
-import com.example.walkofinterest.structures.MyPoint;
-import com.yandex.mapkit.geometry.Point;
 
 import java.util.ArrayList;
 
@@ -22,8 +20,15 @@ public class CategoriesActivity extends BaseButtons {
                             R.drawable.gastronomic4, R.drawable.family5, R.drawable.bydistricts6, R.drawable.activeleisure7};
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("Lifecycle", "onDestroy " + this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("Lifecycle", "onCreate " + this);
         setContentView(R.layout.activity_categories);
 
         SetCategories();
@@ -56,8 +61,7 @@ public class CategoriesActivity extends BaseButtons {
             Log.d("PointDataTo", "null");*/
 
         findViewById(R.id.btnNextFrame).setOnClickListener(v -> ButtonNext(getNextActivityClass(),
-                intent.getParcelableExtra("pointFrom"),
-                intent.getParcelableExtra("pointTo")
+                intent.getParcelableExtra("points")
         ));
     }
 

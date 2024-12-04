@@ -1,18 +1,21 @@
 package com.example.walkofinterest;
 
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.walkofinterest.fragments.MapFragment;
 import com.example.walkofinterest.fragments.SelectBSFragment;
 import com.example.walkofinterest.interfaces.OnBottomSheetClosedListener;
-import com.example.walkofinterest.structures.MyPoint;
+import com.example.walkofinterest.structures.MyPoints;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.yandex.mapkit.MapKitFactory;
@@ -40,17 +43,22 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
     private Boolean isPickerNotVisible = true;
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("Lifecycle", "onDestroy " + this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         MapKitFactory.setApiKey(apiKey);
         MapKitFactory.initialize(this);
-        MapKitFactory.getInstance().resetLocationManagerToDefault();//Block Current Location
+        //MapKitFactory.getInstance().resetLocationManagerToDefault();//Block Current Location
         super.onCreate(savedInstanceState);
+        Log.e("Lifecycle", "onCreate " + this);
         setContentView(R.layout.activity_main);
 
         if (!Network.isInternetAvailable(this))
             Network.ShowDialog(this);
-
-        MapFragment.requestPermLocation(this, this);
 
         CLFrom_Location = findViewById(R.id.CLFrom_Location);
         CLTo_Location = findViewById(R.id.CLTo_Location);
@@ -63,8 +71,8 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         btnNextFrame = findViewById(R.id.btnNextFrame);
         btnNext = findViewById(R.id.btnNext);
         btnNextFrame.setOnClickListener(v -> ButtonNext(getNextActivityClass(),
-                new MyPoint(placemarkFrom.getGeometry()),
-                new MyPoint(placemarkTo.getGeometry())));
+                new MyPoints(placemarkFrom.getGeometry(), placemarkTo.getGeometry())
+        ));
         ButtonOff(btnNextFrame, btnNext);
 
         SetUpMapFragment();
@@ -87,6 +95,8 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
 
     @SuppressLint("SetTextI18n")
     private void SetUpMapFragment() {
+        MapFragment.requestPermLocation(this, this);
+
         mapFragment = new MapFragment();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -192,5 +202,20 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
     @Override
     protected Class<?> getNextActivityClass() {
         return CategoriesActivity.class;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Разрешение предоставлено
+
+            } else {
+                // Разрешение отклонено
+                Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
