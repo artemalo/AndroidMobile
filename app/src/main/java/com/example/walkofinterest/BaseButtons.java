@@ -33,10 +33,7 @@ public abstract class BaseButtons extends AppCompatActivity {
     }
 
     protected void ButtonNext (Class<?> cls, MyPoints points) {
-        Intent intent = new Intent(this, cls);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        intent.putExtra("points", points);
-        //intent.putExtra("pointTo", pointTo);
+        Intent intent = new Intent(this, cls).putExtra("points", points);
 
         String msg = "From - Latitude: " + points.getFrom().getLatitude() + "; Longitude: " + points.getFrom().getLongitude();
         Log.d("ButtonNext " + cls.getName(), msg);

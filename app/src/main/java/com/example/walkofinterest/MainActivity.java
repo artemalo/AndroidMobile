@@ -71,8 +71,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         btnNextFrame = findViewById(R.id.btnNextFrame);
         btnNext = findViewById(R.id.btnNext);
         btnNextFrame.setOnClickListener(v -> ButtonNext(getNextActivityClass(),
-                new MyPoints(placemarkFrom.getGeometry(), placemarkTo.getGeometry())
-        ));
+                new MyPoints(placemarkFrom.getGeometry(), placemarkTo.getGeometry())));
         ButtonOff(btnNextFrame, btnNext);
 
         SetUpMapFragment();

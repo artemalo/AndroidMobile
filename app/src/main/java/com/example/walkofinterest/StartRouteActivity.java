@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,18 +18,34 @@ import com.example.walkofinterest.models.adapters.RouteInfoModel;
 import com.example.walkofinterest.models.adapters.RouteInfoRVAdapter;
 import com.example.walkofinterest.structures.MyPoints;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.yandex.mapkit.GeoObjectCollection;
 import com.yandex.mapkit.geometry.Point;
+import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.map.MapObjectCollection;
+import com.yandex.mapkit.map.VisibleRegion;
+import com.yandex.mapkit.map.VisibleRegionUtils;
 import com.yandex.mapkit.mapview.MapView;
+import com.yandex.mapkit.search.Response;
+import com.yandex.mapkit.search.SearchFactory;
+import com.yandex.mapkit.search.SearchManager;
+import com.yandex.mapkit.search.SearchManagerType;
+import com.yandex.mapkit.search.SearchOptions;
+import com.yandex.mapkit.search.Session;
+import com.yandex.runtime.Error;
 import com.yandex.runtime.image.ImageProvider;
+import com.yandex.runtime.network.NetworkError;
+import com.yandex.runtime.network.RemoteError;
 
 import java.util.ArrayList;
 
-public class StartRouteActivity extends BaseButtons{
+public class StartRouteActivity extends BaseButtons implements Session.SearchListener {
     protected ArrayList<RouteInfoModel> routeInfoModels = new ArrayList<>();
 
     private MapFragment mapFragment;
     private MapObjectCollection mapObjects;
+
+    private SearchManager searchManager;
+    private Session searchSession;
 
     @Override
     protected void onDestroy() {
@@ -65,7 +83,8 @@ public class StartRouteActivity extends BaseButtons{
             if (owner != null) {
                 MapView mapView = mapFragment.getMapView();
                 if (mapView != null) {
-                    mapObjects = mapView.getMapWindow().getMap().getMapObjects();
+                    Map map = mapView.getMapWindow().getMap(); // init map
+                    mapObjects = map.getMapObjects();
 
                     Intent intent = getIntent();
                     MyPoints points = intent.getParcelableExtra("points");
@@ -75,6 +94,12 @@ public class StartRouteActivity extends BaseButtons{
                         Point pointTo = points.getTo();
                         MapFragment.addMark(mapObjects, pointFrom, ImageProvider.fromResource(this, R.drawable.mark_to));
                         MapFragment.addMark(mapObjects, pointTo, ImageProvider.fromResource(this, R.drawable.mark_to));
+
+                        //=====================================
+                        // init searchManager
+                        searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED);
+
+                        submitQuery("Restaurant", pointFrom, pointTo);
                     }
                 } else {
                     Log.e("StartRouteActivity", "MapView is null");
@@ -113,16 +138,6 @@ public class StartRouteActivity extends BaseButtons{
 
         float density = getResources().getDisplayMetrics().density;
         bottomSheetBehavior.setPeekHeight(400);
-
-        /*if (routeInfoModels.size() >= 3) {
-            bottomSheetBehavior.setPeekHeight(bottomSheet.getHeight()+(int)density+300);
-        }
-        else if (routeInfoModels.size() == 2) {
-            bottomSheetBehavior.setPeekHeight(bottomSheet.getHeight()+(int)density+200);
-        }
-        else if (routeInfoModels.size() == 1) {
-            bottomSheetBehavior.setPeekHeight(bottomSheet.getHeight()+(int)density+100);
-        }*/
 
         int screenHeight = getResources().getDisplayMetrics().heightPixels;
 
@@ -170,5 +185,46 @@ public class StartRouteActivity extends BaseButtons{
                 routeInfoModels.add(new RouteInfoModel(i + 1, 60 * (i + 1), 10000 * (i + 1), drawable));
             }
         }
+    }
+
+    private void submitQuery(String query, Point pointFrom, Point pointTo) {
+        VisibleRegion visibleRegion = new VisibleRegion(pointTo,
+                new Point(pointFrom.getLatitude(), pointTo.getLongitude()),
+                new Point(pointTo.getLatitude(), pointFrom.getLongitude()),
+                pointFrom);
+        searchSession = searchManager.submit(
+                query,
+                //VisibleRegionUtils.toPolygon(mapFragment.getMapView().getMapWindow().getMap().getVisibleRegion()),
+                VisibleRegionUtils.toPolygon(visibleRegion),
+                new SearchOptions()/*.setUserPosition(pointTo)*/.setResultPageSize(1),
+                this);
+    }
+
+    @Override
+    public void onSearchResponse(Response response) {
+        MapObjectCollection mapObjects = mapFragment.getMapView().getMapWindow().getMap().getMapObjects();
+        mapObjects.clear();
+        final ImageProvider searchResultImageProvider = ImageProvider.fromResource(this, R.drawable.mark_from);
+        for (GeoObjectCollection.Item searchResult : response.getCollection().getChildren()) {
+            final Point resultLocation = searchResult.getObj().getGeometry().get(0).getPoint();
+            if (resultLocation != null) {
+                mapObjects.addPlacemark(placemark -> {
+                    placemark.setGeometry(resultLocation);
+                    placemark.setIcon(searchResultImageProvider);
+                });
+            }
+        }
+    }
+
+    @Override
+    public void onSearchError(@NonNull Error error) {
+        String errorMessage = "unknown error message";
+        if (error instanceof RemoteError) {
+            errorMessage = "remote error message";
+        } else if (error instanceof NetworkError) {
+            errorMessage = "network error message";
+        }
+
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
 }
