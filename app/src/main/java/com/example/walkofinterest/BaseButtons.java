@@ -3,12 +3,15 @@ package com.example.walkofinterest;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.walkofinterest.models.adapters.CategoryModel;
 import com.example.walkofinterest.structures.MyPoints;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.walkofinterest.fragments.ProfileFragment;
+
+import java.util.ArrayList;
 
 public abstract class BaseButtons extends AppCompatActivity {
     protected abstract Class<?> getBackActivityClass();
@@ -32,8 +35,10 @@ public abstract class BaseButtons extends AppCompatActivity {
         }
     }
 
-    protected void ButtonNext (Class<?> cls, MyPoints points) {
-        Intent intent = new Intent(this, cls).putExtra("points", points);
+    protected void ButtonNext (Class<?> cls, MyPoints points, ArrayList<String> namesCategories) {
+        Intent intent = new Intent(this, cls)
+                .putExtra("points", points)
+                .putStringArrayListExtra("namesCategories", namesCategories);
 
         String msg = "From - Latitude: " + points.getFrom().getLatitude() + "; Longitude: " + points.getFrom().getLongitude();
         Log.d("ButtonNext " + cls.getName(), msg);

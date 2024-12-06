@@ -38,6 +38,10 @@ public class RouteInfoRVAdapter extends RecyclerView.Adapter<RouteInfoRVAdapter.
         holder.time.setText(routeInfoModels.get(position).getTime());
         holder.countSteps.setText(routeInfoModels.get(position).getCountSteps());
         holder.constraintLayout.setBackground(routeInfoModels.get(position).getColor());
+
+        /*holder.view.setOnClickListener(v -> {
+
+        });*/
     }
 
     @Override
@@ -46,6 +50,7 @@ public class RouteInfoRVAdapter extends RecyclerView.Adapter<RouteInfoRVAdapter.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
+        //View view;
         TextView index;
         TextView time;
         TextView countSteps;
@@ -54,6 +59,7 @@ public class RouteInfoRVAdapter extends RecyclerView.Adapter<RouteInfoRVAdapter.
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            //view = itemView;
             index = itemView.findViewById(R.id.indexRouteInfo);
             time = itemView.findViewById(R.id.timeRouteInfo);
             countSteps = itemView.findViewById(R.id.countStepsRouteInfo);

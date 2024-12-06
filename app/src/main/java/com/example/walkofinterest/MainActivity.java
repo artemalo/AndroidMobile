@@ -19,7 +19,11 @@ import com.example.walkofinterest.structures.MyPoints;
 import com.example.walkofinterest.utils.Network;
 import com.shawnlin.numberpicker.NumberPicker;
 import com.yandex.mapkit.MapKitFactory;
+import com.yandex.mapkit.directions.driving.DrivingRoute;
 import com.yandex.mapkit.geometry.Point;
+import com.yandex.mapkit.geometry.PolylinePosition;
+import com.yandex.mapkit.geometry.geo.PolylineIndex;
+import com.yandex.mapkit.geometry.geo.PolylineUtils;
 import com.yandex.mapkit.map.MapObjectCollection;
 import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.mapview.MapView;
@@ -71,15 +75,11 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         btnNextFrame = findViewById(R.id.btnNextFrame);
         btnNext = findViewById(R.id.btnNext);
         btnNextFrame.setOnClickListener(v -> ButtonNext(getNextActivityClass(),
-                new MyPoints(placemarkFrom.getGeometry(), placemarkTo.getGeometry())));
+                new MyPoints(placemarkFrom.getGeometry(), placemarkTo.getGeometry()),
+                null));
         ButtonOff(btnNextFrame, btnNext);
 
         SetUpMapFragment();
-    }
-
-    static public void Stop(){
-        mapFragment.onStop();
-        mapFragment.onDestroy();
     }
 
     private void ButtonOn(FrameLayout btnFrame, Button btn){
@@ -210,11 +210,23 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Разрешение предоставлено
-
+                return;
             } else {
                 // Разрешение отклонено
                 Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    public static double distanceBetweenPointsOnRoute(DrivingRoute route, Point first, Point second) {
+        PolylineIndex polylineIndex = PolylineUtils.createPolylineIndex(route.getGeometry());
+        PolylinePosition firstPosition = polylineIndex.closestPolylinePosition(first, PolylineIndex.Priority.CLOSEST_TO_RAW_POINT, 1.0);
+        PolylinePosition secondPosition = polylineIndex.closestPolylinePosition(second, PolylineIndex.Priority.CLOSEST_TO_RAW_POINT, 1.0);
+
+        if (firstPosition != null && secondPosition != null) {
+            return PolylineUtils.distanceBetweenPolylinePositions(route.getGeometry(), firstPosition, secondPosition);
+        } else {
+            throw new IllegalArgumentException("Positions cannot be null.");
         }
     }
 }

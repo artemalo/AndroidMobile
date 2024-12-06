@@ -3,11 +3,11 @@ package com.example.walkofinterest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableContainer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +19,15 @@ import com.example.walkofinterest.models.adapters.RouteInfoRVAdapter;
 import com.example.walkofinterest.structures.MyPoints;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.yandex.mapkit.GeoObjectCollection;
+import com.yandex.mapkit.RequestPoint;
+import com.yandex.mapkit.RequestPointType;
+import com.yandex.mapkit.directions.DirectionsFactory;
+import com.yandex.mapkit.directions.driving.DrivingOptions;
+import com.yandex.mapkit.directions.driving.DrivingRoute;
+import com.yandex.mapkit.directions.driving.DrivingRouter;
+import com.yandex.mapkit.directions.driving.DrivingRouterType;
+import com.yandex.mapkit.directions.driving.DrivingSession;
+import com.yandex.mapkit.directions.driving.VehicleOptions;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.map.MapObjectCollection;
@@ -37,15 +46,21 @@ import com.yandex.runtime.network.NetworkError;
 import com.yandex.runtime.network.RemoteError;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class StartRouteActivity extends BaseButtons implements Session.SearchListener {
+public class StartRouteActivity extends BaseButtons implements Session.SearchListener, DrivingSession.DrivingRouteListener {
     protected ArrayList<RouteInfoModel> routeInfoModels = new ArrayList<>();
 
     private MapFragment mapFragment;
     private MapObjectCollection mapObjects;
 
+    private ArrayList<Point> viaPoints = new ArrayList<>();
+
     private SearchManager searchManager;
     private Session searchSession;
+
+    private DrivingRouter drivingRouter;
+    private DrivingSession drivingSession;
 
     @Override
     protected void onDestroy() {
@@ -92,14 +107,23 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
                     if (points != null) {//NonNull
                         Point pointFrom = points.getFrom();
                         Point pointTo = points.getTo();
-                        MapFragment.addMark(mapObjects, pointFrom, ImageProvider.fromResource(this, R.drawable.mark_to));
-                        MapFragment.addMark(mapObjects, pointTo, ImageProvider.fromResource(this, R.drawable.mark_to));
+                        //findViewById(R.id.textFromLocation) -> apply change to text <<<<<<====================<<<<<<======================<<<<<<<<
+                        /*MapFragment.addMark(mapObjects, pointFrom, ImageProvider.fromResource(this, R.drawable.mark_to));
+                        MapFragment.addMark(mapObjects, pointTo, ImageProvider.fromResource(this, R.drawable.mark_to));*/
 
                         //=====================================
                         // init searchManager
                         searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED);
 
-                        submitQuery("Restaurant", pointFrom, pointTo);
+                        submitQuerySearch("Restaurant", pointFrom, pointTo);
+                        //=====================================
+                        ArrayList<String> namesCategories = intent.getStringArrayListExtra("namesCategories");
+                        if (namesCategories != null)
+                            for (String nameCategory : namesCategories)
+                                submitQuerySearch(nameCategory, pointFrom, pointTo);
+                        //=========================================
+                        //submitQueryDrivingRoute after submitQuery !!! (init viaPoints)
+                        submitQueryDrivingRoute(pointFrom, pointTo);
                     }
                 } else {
                     Log.e("StartRouteActivity", "MapView is null");
@@ -115,8 +139,6 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
 
     @SuppressLint("ClickableViewAccessibility")
     private void SetBottomSheet() {
-        SetRouteInformation();
-
         View bottomSheet = findViewById(R.id.bottom_sheet_routes);
         BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
@@ -155,16 +177,23 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
         return null;//GoActivity
     }
 
-    protected void SetRouteInformation() {
+    //use only after init routeInfoModels
+    private void SetRouteInformation() {
+        if (routeInfoModels == null || routeInfoModels.isEmpty()) {
+            Log.e("SetRouteInformation", "No data to display");
+            return;
+        }
         RecyclerView recyclerView = findViewById(R.id.recyclerViewRouteInformation);
-        SetUpRouteInfoModels();
+
+        //init models
+        //...
 
         RouteInfoRVAdapter adapter = new RouteInfoRVAdapter(this, routeInfoModels);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    /*@SuppressLint("UseCompatLoadingForDrawables")
     private void SetUpRouteInfoModels() {
         final int n = 12;//min 3, n % 3 == 0
 
@@ -185,9 +214,9 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
                 routeInfoModels.add(new RouteInfoModel(i + 1, 60 * (i + 1), 10000 * (i + 1), drawable));
             }
         }
-    }
+    }*/
 
-    private void submitQuery(String query, Point pointFrom, Point pointTo) {
+    private void submitQuerySearch(String query, Point pointFrom, Point pointTo) {
         VisibleRegion visibleRegion = new VisibleRegion(pointTo,
                 new Point(pointFrom.getLatitude(), pointTo.getLongitude()),
                 new Point(pointTo.getLatitude(), pointFrom.getLongitude()),
@@ -208,10 +237,11 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
         for (GeoObjectCollection.Item searchResult : response.getCollection().getChildren()) {
             final Point resultLocation = searchResult.getObj().getGeometry().get(0).getPoint();
             if (resultLocation != null) {
-                mapObjects.addPlacemark(placemark -> {
+               /* mapObjects.addPlacemark(placemark -> {
                     placemark.setGeometry(resultLocation);
                     placemark.setIcon(searchResultImageProvider);
-                });
+                });*/
+                viaPoints.add(resultLocation);
             }
         }
     }
@@ -225,6 +255,69 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
             errorMessage = "network error message";
         }
 
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        Log.e("onSearchError", errorMessage);
+    }
+
+    public void submitQueryDrivingRoute(Point from, Point to) {
+        drivingRouter = DirectionsFactory.getInstance().createDrivingRouter(DrivingRouterType.COMBINED);
+
+        // Указываем точки маршрута
+        ArrayList<RequestPoint> points = new ArrayList<>();
+        points.add(new RequestPoint(from, RequestPointType.WAYPOINT, null, null));
+
+        if (viaPoints != null)
+            for (Point p : viaPoints)
+                points.add(new RequestPoint(p, RequestPointType.VIAPOINT, null, null));
+
+        points.add(new RequestPoint(to, RequestPointType.WAYPOINT, null, null));
+
+
+        DrivingOptions drivingOptions = new DrivingOptions()
+                .setAvoidTolls(false)
+                .setAvoidUnpaved(false)
+                .setAvoidPoorConditions(false)
+                /*.setRoutesCount(2)*/;
+        VehicleOptions vehicleOptions = new VehicleOptions();
+
+        drivingSession = drivingRouter.requestRoutes(
+                points,
+                drivingOptions,
+                vehicleOptions,
+                this
+        );
+
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public void onDrivingRoutes(@NonNull List<DrivingRoute> route) {
+        if (!route.isEmpty()) {
+            /*routesCollection.clear(); -- draw route
+
+            for (int i = 0; i < list.size(); i++) {
+                PolylineMapObject polyline = routesCollection.addPolyline(list.get(i).getGeometry());
+                if (i == 0) {
+                    styleMainRoute(polyline);
+                } else {
+                    styleAlternativeRoute(polyline);
+                }
+            }*/
+
+            for (int i = 0; i < route.size(); i++) {
+                routeInfoModels.add(new RouteInfoModel(i + 1, 0, 0, getDrawable(R.drawable.route_green)));
+            }
+
+            SetRouteInformation(); //only after init routeInfoModels
+
+
+            Log.d("Pedestrian","Pedestrian route done! Count: " + String.valueOf(route.size()) );
+        } else {
+            Log.e("Pedestrian","Route not found.");
+        }
+    }
+
+    @Override
+    public void onDrivingRoutesError(@NonNull Error error) {
+        Log.e("Pedestrian", error.toString());
     }
 }

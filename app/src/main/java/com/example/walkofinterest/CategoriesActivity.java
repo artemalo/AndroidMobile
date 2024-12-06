@@ -60,9 +60,22 @@ public class CategoriesActivity extends BaseButtons {
         else
             Log.d("PointDataTo", "null");*/
 
-        findViewById(R.id.btnNextFrame).setOnClickListener(v -> ButtonNext(getNextActivityClass(),
-                intent.getParcelableExtra("points")
-        ));
+        findViewById(R.id.btnNextFrame).setOnClickListener(v -> {
+            ArrayList<String> namesCategories = new ArrayList<>();
+            for (int i = 0; i < categoryModels.size(); i++)
+                if (categoryModels.get(i).isChecked())
+                    namesCategories.add(categoryModels.get(i).getName());
+
+            ButtonNext(getNextActivityClass(),
+                    intent.getParcelableExtra("points"),
+                    namesCategories
+            );
+
+        });
+    }
+
+    private ArrayList<CategoryModel> getCategoryModels() {
+        return categoryModels;
     }
 
     @Override
