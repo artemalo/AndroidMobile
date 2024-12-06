@@ -20,25 +20,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/route_button"
-            android:layout_height="@dimen/route_button"
-            android:layout_marginStart="@dimen/route_margin_start"
-            android:layout_marginTop="@dimen/margin_top"
-            android:layout_marginBottom="@dimen/margin_top"
-            android:background="@drawable/numeric"
+            android:id="@+id/indexShowRoute"
+            android:layout_width="@dimen/button_fix"
+            android:layout_height="@dimen/button_fix"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="@dimen/route_button"
+                android:layout_height="@dimen/route_button"
+                android:layout_marginStart="@dimen/route_margin_start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginBottom="@dimen/margin_top"
+                android:background="@drawable/numeric"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/indexRouteInfo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="i"
-                android:textColor="@color/white"
-                tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/indexRouteInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="i"
+                    android:textColor="@color/white"
+                    tools:ignore="HardcodedText" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

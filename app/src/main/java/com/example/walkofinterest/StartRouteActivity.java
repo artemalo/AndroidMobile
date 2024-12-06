@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,7 @@ import com.yandex.mapkit.directions.driving.VehicleOptions;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.map.MapObjectCollection;
+import com.yandex.mapkit.map.PolylineMapObject;
 import com.yandex.mapkit.map.VisibleRegion;
 import com.yandex.mapkit.map.VisibleRegionUtils;
 import com.yandex.mapkit.mapview.MapView;
@@ -61,6 +63,8 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
 
     private DrivingRouter drivingRouter;
     private DrivingSession drivingSession;
+
+    private MapObjectCollection routesCollection;
 
     @Override
     protected void onDestroy() {
@@ -100,6 +104,7 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
                 if (mapView != null) {
                     Map map = mapView.getMapWindow().getMap(); // init map
                     mapObjects = map.getMapObjects();
+                    routesCollection = map.getMapObjects().addCollection();
 
                     Intent intent = getIntent();
                     MyPoints points = intent.getParcelableExtra("points");
@@ -119,8 +124,10 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
                         //=====================================
                         ArrayList<String> namesCategories = intent.getStringArrayListExtra("namesCategories");
                         if (namesCategories != null)
-                            for (String nameCategory : namesCategories)
+                            for (String nameCategory : namesCategories) {
                                 submitQuerySearch(nameCategory, pointFrom, pointTo);
+                                Log.d("submitQuerySearch", nameCategory);
+                            }
                         //=========================================
                         //submitQueryDrivingRoute after submitQuery !!! (init viaPoints)
                         submitQueryDrivingRoute(pointFrom, pointTo);
@@ -191,56 +198,60 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
         RouteInfoRVAdapter adapter = new RouteInfoRVAdapter(this, routeInfoModels);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter.setCallBackIndexRoute(index -> {
+            routesCollection.clear();
+            index -= 1;
+            DrivingRoute drivingRoute = routeInfoModels.get(index).getRoute();
+            if (drivingRoute == null) return;
+
+            PolylineMapObject polyline = routesCollection.addPolyline(drivingRoute.getGeometry());
+            polyline.setZIndex(5f);
+            polyline.setStrokeColor(ContextCompat.getColor(this, R.color.gold));
+            polyline.setStrokeWidth(4f);
+            polyline.setOutlineColor(ContextCompat.getColor(this, R.color.black));
+            polyline.setOutlineWidth(2f);
+        });
     }
 
-    /*@SuppressLint("UseCompatLoadingForDrawables")
-    private void SetUpRouteInfoModels() {
-        final int n = 12;//min 3, n % 3 == 0
-
-        for (int i = 0; i < n; i++) {
-            Drawable drawable;
-            {
-                drawable = getDrawable(R.drawable.route_green);
-                routeInfoModels.add(new RouteInfoModel(i + 1, 60 * (i + 1), 10000 * (i + 1), drawable));
-                i++;
-            }
-            {
-                drawable = getDrawable(R.drawable.route_yellow);
-                routeInfoModels.add(new RouteInfoModel(i + 1, 60 * (i + 1), 10000 * (i + 1), drawable));
-                i++;
-            }
-            {
-                drawable = getDrawable(R.drawable.route_red);
-                routeInfoModels.add(new RouteInfoModel(i + 1, 60 * (i + 1), 10000 * (i + 1), drawable));
-            }
-        }
-    }*/
-
     private void submitQuerySearch(String query, Point pointFrom, Point pointTo) {
-        VisibleRegion visibleRegion = new VisibleRegion(pointTo,
+        VisibleRegion visibleRegion = new VisibleRegion(
+                pointTo,
                 new Point(pointFrom.getLatitude(), pointTo.getLongitude()),
                 new Point(pointTo.getLatitude(), pointFrom.getLongitude()),
-                pointFrom);
+                pointFrom
+        );
+        Point centerPoint = new Point(
+                (pointFrom.getLatitude() + pointTo.getLatitude()) / 2,
+                (pointFrom.getLongitude() + pointTo.getLongitude()) / 2
+        );
+
         searchSession = searchManager.submit(
                 query,
-                //VisibleRegionUtils.toPolygon(mapFragment.getMapView().getMapWindow().getMap().getVisibleRegion()),
-                VisibleRegionUtils.toPolygon(visibleRegion),
-                new SearchOptions()/*.setUserPosition(pointTo)*/.setResultPageSize(1),
-                this);
+                VisibleRegionUtils
+                        .toPolygon(visibleRegion),
+                new SearchOptions()
+                        .setUserPosition(centerPoint)
+                        .setResultPageSize(1),
+                this
+        );
     }
 
     @Override
     public void onSearchResponse(Response response) {
-        MapObjectCollection mapObjects = mapFragment.getMapView().getMapWindow().getMap().getMapObjects();
-        mapObjects.clear();
+        //MapObjectCollection mapObjects = mapFragment.getMapView().getMapWindow().getMap().getMapObjects();
+        //mapObjects.clear();
         final ImageProvider searchResultImageProvider = ImageProvider.fromResource(this, R.drawable.mark_from);
         for (GeoObjectCollection.Item searchResult : response.getCollection().getChildren()) {
             final Point resultLocation = searchResult.getObj().getGeometry().get(0).getPoint();
             if (resultLocation != null) {
-               /* mapObjects.addPlacemark(placemark -> {
+                String msg = "resultLocation - Latitude: " + resultLocation.getLatitude() + "; Longitude: " + resultLocation.getLongitude();
+                Log.d("onSearchResponse", msg);
+
+               mapObjects.addPlacemark(placemark -> {
                     placemark.setGeometry(resultLocation);
                     placemark.setIcon(searchResultImageProvider);
-                });*/
+                });
                 viaPoints.add(resultLocation);
             }
         }
@@ -304,13 +315,17 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
             }*/
 
             for (int i = 0; i < route.size(); i++) {
-                routeInfoModels.add(new RouteInfoModel(i + 1, 0, 0, getDrawable(R.drawable.route_green)));
+                double routeDistance = route.get(i).getMetadata().getWeight().getDistance().getValue(); // Длина маршрута в метрах
+                int time = (int)route.get(i).getMetadata().getWeight().getTime().getValue();
+                
+                int countSteps = (int)(routeDistance / 0.7);
+                routeInfoModels.add(new RouteInfoModel(route.get(i), i + 1, time, countSteps, getDrawable(R.drawable.route_green)));
             }
 
             SetRouteInformation(); //only after init routeInfoModels
 
 
-            Log.d("Pedestrian","Pedestrian route done! Count: " + String.valueOf(route.size()) );
+            Log.d("Pedestrian","Pedestrian route done! Count: " + route.size() );
         } else {
             Log.e("Pedestrian","Route not found.");
         }

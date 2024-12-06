@@ -1,6 +1,7 @@
 package com.example.walkofinterest.models.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.walkofinterest.R;
+import com.example.walkofinterest.interfaces.CallBackIndexRoute;
 
 import java.util.ArrayList;
 
 public class RouteInfoRVAdapter extends RecyclerView.Adapter<RouteInfoRVAdapter.MyViewHolder> {
+    CallBackIndexRoute callBackIndexRoute;
     Context context;
     ArrayList<RouteInfoModel> routeInfoModels;
 
@@ -39,9 +42,14 @@ public class RouteInfoRVAdapter extends RecyclerView.Adapter<RouteInfoRVAdapter.
         holder.countSteps.setText(routeInfoModels.get(position).getCountSteps());
         holder.constraintLayout.setBackground(routeInfoModels.get(position).getColor());
 
-        /*holder.view.setOnClickListener(v -> {
+        holder.indexShowRoute.setOnClickListener(v-> {
+            Log.d("Click", "indexShowRoute: " + routeInfoModels.get(position).getIndex());
+            callBackIndexRoute.ClickIndex(routeInfoModels.get(position).getIndexInt());
+        });
 
-        });*/
+        holder.view.setOnClickListener(v -> {
+
+        });
     }
 
     @Override
@@ -50,20 +58,27 @@ public class RouteInfoRVAdapter extends RecyclerView.Adapter<RouteInfoRVAdapter.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        //View view;
+        View view;
         TextView index;
         TextView time;
         TextView countSteps;
         ConstraintLayout constraintLayout;
+        ConstraintLayout indexShowRoute;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            //view = itemView;
+            view = itemView;
+
             index = itemView.findViewById(R.id.indexRouteInfo);
             time = itemView.findViewById(R.id.timeRouteInfo);
             countSteps = itemView.findViewById(R.id.countStepsRouteInfo);
             constraintLayout = itemView.findViewById(R.id.route);
+            indexShowRoute = itemView.findViewById(R.id.indexShowRoute);
         }
+    }
+
+    public void setCallBackIndexRoute(CallBackIndexRoute callBackIndexRoute) {
+        this.callBackIndexRoute = callBackIndexRoute;
     }
 }

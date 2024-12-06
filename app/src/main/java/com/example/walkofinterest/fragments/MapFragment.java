@@ -91,7 +91,7 @@ public class MapFragment extends Fragment {
 
         Map map = mapView.getMapWindow().getMap();
         map.setNightModeEnabled(true);
-        map.move(new CameraPosition(new Point(47.202198, 38.935190), 18.0f, 0.0f, 0.0f),
+        map.move(new CameraPosition(new Point(47.202198, 38.935190), 16.0f, 0.0f, 0.0f),
                 new Animation(Animation.Type.SMOOTH, 0),
                 null);
         map.addInputListener(inputListener);
