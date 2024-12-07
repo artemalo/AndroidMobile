@@ -11,14 +11,6 @@ public class RouteInfoModel {
     String countSteps;
     Drawable color;
 
-    public RouteInfoModel(DrivingRoute route, String index, String time, String countSteps, Drawable color) {
-        this.route = route;
-        this.index = index;
-        this.time = time;
-        this.countSteps = countSteps;
-        this.color = color;
-    }
-
     public RouteInfoModel(DrivingRoute route, int index, int time, int countSteps, Drawable color) {
         this.route = route;
         this.index = String.valueOf(index);

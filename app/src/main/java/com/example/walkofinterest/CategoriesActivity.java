@@ -74,10 +74,6 @@ public class CategoriesActivity extends BaseButtons {
         });
     }
 
-    private ArrayList<CategoryModel> getCategoryModels() {
-        return categoryModels;
-    }
-
     @Override
     protected Class<?> getBackActivityClass() {
         return MainActivity.class;

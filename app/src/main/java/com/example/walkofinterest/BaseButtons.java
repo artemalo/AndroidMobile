@@ -2,13 +2,10 @@ package com.example.walkofinterest;
 
 import android.content.Intent;
 import android.util.Log;
-
-import com.example.walkofinterest.models.adapters.CategoryModel;
-import com.example.walkofinterest.structures.MyPoints;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.walkofinterest.structures.MyPoints;
 import com.example.walkofinterest.fragments.ProfileFragment;
 
 import java.util.ArrayList;
