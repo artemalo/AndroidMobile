@@ -22,13 +22,13 @@ public class CategoriesActivity extends BaseButtons {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("Lifecycle", "onDestroy " + this);
+        Log.w("Lifecycle", "onDestroy " + this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("Lifecycle", "onCreate " + this);
+        Log.w("Lifecycle", "onCreate " + this);
         setContentView(R.layout.activity_categories);
 
         SetCategories();
@@ -43,22 +43,6 @@ public class CategoriesActivity extends BaseButtons {
         findViewById(R.id.btnBack).setOnClickListener(v -> ButtonBack(getBackActivityClass()));
 
         Intent intent = getIntent();
-        /* NonNull!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! There was test
-        MyPoint myPointFrom = intent.getParcelableExtra("pointFrom");
-        if (myPointFrom != null) {
-            Point point = myPointFrom.getPoint(); // Преобразование обратно в Yandex Point
-            Log.d("PointDataFrom", "Latitude: " + point.getLatitude() + ", Longitude: " + point.getLongitude());
-        }
-        else
-            Log.d("PointDataFrom", "null");
-
-        MyPoint myPointTo = intent.getParcelableExtra("pointTo");
-        if (myPointTo != null) {
-            Point point = myPointTo.getPoint(); // Преобразование обратно в Yandex Point
-            Log.d("PointDataTo", "Latitude: " + point.getLatitude() + ", Longitude: " + point.getLongitude());
-        }
-        else
-            Log.d("PointDataTo", "null");*/
 
         findViewById(R.id.btnNextFrame).setOnClickListener(v -> {
             ArrayList<String> namesCategories = new ArrayList<>();
@@ -70,7 +54,6 @@ public class CategoriesActivity extends BaseButtons {
                     intent.getParcelableExtra("points"),
                     namesCategories
             );
-
         });
     }
 

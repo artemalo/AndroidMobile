@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -73,7 +71,6 @@ public class MapFragment extends Fragment {
         mark.setIcon(imageProvider);
         mark.setIconStyle(new IconStyle().setAnchor(new PointF(0.5f,0.9f)));
 
-        //mark.setOpacity(0.9f);
         return mark;
     }
 

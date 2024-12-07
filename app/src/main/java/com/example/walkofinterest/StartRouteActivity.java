@@ -2,7 +2,6 @@ package com.example.walkofinterest;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -46,7 +45,6 @@ import com.yandex.runtime.network.NetworkError;
 import com.yandex.runtime.network.RemoteError;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StartRouteActivity extends BaseButtons implements Session.SearchListener, DrivingSession.DrivingRouteListener{
@@ -69,40 +67,16 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
     int countViaPoints = 0, sizeSelectedCategories = 0,
         indexRoute = 0;
 
-
-    //Use only init pointFrom, pointTo
-    /*private class RouteQueryTask extends AsyncTask<Void, Void, Void>  {
-
-        @Override
-        protected Void doInBackground(Void... listQuery) {
-            viaPoints = new ArrayList<>();
-            try {
-                if (pointFrom != null && pointTo != null ) {
-                    while ()
-                }
-            } catch (Exception e) {
-                Log.e("RouteQueryTask", "Exception", e);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            submitQueryDrivingRoute();
-        }
-    }*/
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("Lifecycle", "onDestroy " + this);
+        Log.w("Lifecycle", "onDestroy " + this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("Lifecycle", "onCreate " + this);
+        Log.w("Lifecycle", "onCreate " + this);
         setContentView(R.layout.activity_start_route);
 
         SetBottomSheet();
@@ -133,24 +107,13 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
 
                     Intent intent = getIntent();
                     MyPoints points = intent.getParcelableExtra("points");
-                    //MyPoints myPointTo = intent.getParcelableExtra("pointTo");
+
                     if (points != null) {//NonNull
                         //Init points
                         pointFrom = points.getFrom();
                         pointTo = points.getTo();
 
                         //findViewById(R.id.textFromLocation) -> apply change to text <<<<<<====================<<<<<<======================<<<<<<<<
-                        /*MapFragment.addMark(mapObjects, pointFrom, ImageProvider.fromResource(this, R.drawable.mark_to));
-                        MapFragment.addMark(mapObjects, pointTo, ImageProvider.fromResource(this, R.drawable.mark_to));*/
-
-                        //=====================================
-                        // init searchManager
-                        //searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED);
-
-                        //submitQuerySearch("Restaurant", pointFrom, pointTo);
-                        //=====================================
-
-                        //List<String> namesCategories = Arrays.asList(intent.getStringArrayListExtra("namesCategories"));
                         List<String> namesCategories = intent.getStringArrayListExtra("namesCategories");
                         if (namesCategories != null) {
                             sizeSelectedCategories = namesCategories.size();
@@ -159,11 +122,7 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
                             if (sizeSelectedCategories == 0)
                                 submitQueryDrivingRoute();
                         }
-                        //new RouteQueryTask().execute();
-                        //=========================================
                         //submitQueryDrivingRoute after submitQuery !!! (init viaPoints)
-                        //viaPoints don't initialized
-                        //submitQueryDrivingRoute(pointFrom, pointTo);
                     }
                 } else {
                     Log.e("StartRouteActivity", "MapView is null");
@@ -276,8 +235,6 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
 
     @Override
     public void onSearchResponse(Response response) {
-        //MapObjectCollection mapObjects = mapFragment.getMapView().getMapWindow().getMap().getMapObjects();
-        //mapObjects.clear();
         final ImageProvider searchResultImageProvider = ImageProvider.fromResource(StartRouteActivity.this, R.drawable.mark_from);
         for (GeoObjectCollection.Item searchResult : response.getCollection().getChildren()) {
             final Point resultLocation = searchResult.getObj().getGeometry().get(0).getPoint();
@@ -285,10 +242,11 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
                 String msg = "resultLocation - Latitude: " + resultLocation.getLatitude() + "; Longitude: " + resultLocation.getLongitude();
                 Log.d("onSearchResponse", msg);
 
-                mapObjects.addPlacemark(placemark -> {
+                /*mapObjects.addPlacemark(placemark -> {
                     placemark.setGeometry(resultLocation);
                     placemark.setIcon(searchResultImageProvider);
-                });
+                });*/
+                MapFragment.addMark(mapObjects, resultLocation, searchResultImageProvider);
                 viaPoints.add(resultLocation);
 
                 //=====
@@ -347,7 +305,8 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
         if (!route.isEmpty()) {
             for (int i = 0; i < route.size(); i++) {
                 double routeDistance = route.get(i).getMetadata().getWeight().getDistance().getValue(); // Длина маршрута в метрах
-                int time = (int)route.get(i).getMetadata().getWeight().getTime().getValue();
+                //v = 5000 - m/h, v = 83 - m/m
+                int time = (int)(routeDistance / 83);
 
                 int countSteps = (int)(routeDistance / 0.7);
                 routeInfoModels.add(new RouteInfoModel(route.get(i), indexRoute + 1, time, countSteps, getDrawable(R.drawable.route_green)));

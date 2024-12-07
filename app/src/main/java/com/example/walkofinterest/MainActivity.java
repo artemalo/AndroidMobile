@@ -30,6 +30,18 @@ import com.yandex.mapkit.mapview.MapView;
 import com.yandex.runtime.image.ImageProvider;
 
 public class MainActivity extends BaseButtons implements OnBottomSheetClosedListener {
+    /*
+    implements SearchListener
+    if (response != null && response.getMetadata() != null && !response.getMetadata().getSearchResults().isEmpty()) {
+            // Получаем первое совпадение
+            GeoObject geoObject = response.getMetadata().getSearchResults().get(0);
+            // Извлекаем название
+            String name = geoObject.getName();
+            Log.d("GeocodeExample", "Name: " + name);
+        } else {
+            Log.d("GeocodeExample", "No results found.");
+        }
+    */
     private static final String apiKey = "28da8ea7-c995-4793-b13b-2971cf44e2f0";
 
     private ConstraintLayout CLFrom_Location, CLTo_Location;
@@ -49,7 +61,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("Lifecycle", "onDestroy " + this);
+        Log.w("Lifecycle", "onDestroy " + this);
     }
 
     @Override
@@ -58,7 +70,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
         MapKitFactory.initialize(this);
         //MapKitFactory.getInstance().resetLocationManagerToDefault();//Block Current Location
         super.onCreate(savedInstanceState);
-        Log.e("Lifecycle", "onCreate " + this);
+        Log.w("Lifecycle", "onCreate " + this);
         setContentView(R.layout.activity_main);
 
         if (!Network.isInternetAvailable(this))
@@ -215,18 +227,6 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
                 // Разрешение отклонено
                 Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    public static double distanceBetweenPointsOnRoute(DrivingRoute route, Point first, Point second) {
-        PolylineIndex polylineIndex = PolylineUtils.createPolylineIndex(route.getGeometry());
-        PolylinePosition firstPosition = polylineIndex.closestPolylinePosition(first, PolylineIndex.Priority.CLOSEST_TO_RAW_POINT, 1.0);
-        PolylinePosition secondPosition = polylineIndex.closestPolylinePosition(second, PolylineIndex.Priority.CLOSEST_TO_RAW_POINT, 1.0);
-
-        if (firstPosition != null && secondPosition != null) {
-            return PolylineUtils.distanceBetweenPolylinePositions(route.getGeometry(), firstPosition, secondPosition);
-        } else {
-            throw new IllegalArgumentException("Positions cannot be null.");
         }
     }
 }
