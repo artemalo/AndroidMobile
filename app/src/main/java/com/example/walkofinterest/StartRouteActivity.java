@@ -2,6 +2,7 @@ package com.example.walkofinterest;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -29,8 +30,10 @@ import com.yandex.mapkit.directions.driving.DrivingRouterType;
 import com.yandex.mapkit.directions.driving.DrivingSession;
 import com.yandex.mapkit.directions.driving.VehicleOptions;
 import com.yandex.mapkit.geometry.Point;
+import com.yandex.mapkit.map.IconStyle;
 import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.map.MapObjectCollection;
+import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.map.PolylineMapObject;
 import com.yandex.mapkit.map.VisibleRegion;
 import com.yandex.mapkit.map.VisibleRegionUtils;
@@ -255,10 +258,9 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
                 String msg = "resultLocation - Latitude: " + resultLocation.getLatitude() + "; Longitude: " + resultLocation.getLongitude();
                 Log.d("onSearchResponse", msg);
 
-                /*mapObjects.addPlacemark(placemark -> {
-                    placemark.setGeometry(resultLocation);
-                    placemark.setIcon(searchResultImageProvider);
-                });*/
+                MapFragment.addMark(mapObjects, pointFrom, ImageProvider.fromResource(StartRouteActivity.this, R.drawable.mark_to));
+                MapFragment.addMark(mapObjects, pointTo, ImageProvider.fromResource(StartRouteActivity.this, R.drawable.mark_to));
+
                 MapFragment.addMark(mapObjects, resultLocation, searchResultImageProvider);
                 viaPoints.add(resultLocation);
 
