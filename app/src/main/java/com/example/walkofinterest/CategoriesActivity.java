@@ -1,8 +1,10 @@
 package com.example.walkofinterest;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.walkofinterest.models.adapters.CategoryRVAdapter;
 import com.example.walkofinterest.models.adapters.CategoryModel;
+import com.example.walkofinterest.structures.MyPoints;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,7 @@ public class CategoriesActivity extends BaseButtons {
         Log.w("Lifecycle", "onDestroy " + this);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,15 @@ public class CategoriesActivity extends BaseButtons {
                     namesCategories
             );
         });
+
+        TextView textFromLocation = findViewById(R.id.textFromLocation);
+        TextView textToLocation = findViewById(R.id.textToLocation);
+
+        MyPoints points = intent.getParcelableExtra("points");
+        if (points != null) {
+            textFromLocation.setText(points.getFrom().getLatitude() + " " + points.getFrom().getLongitude());
+            textToLocation.setText(points.getTo().getLatitude() + " " + points.getTo().getLongitude());
+        }
     }
 
     @Override

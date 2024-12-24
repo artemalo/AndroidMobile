@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -73,6 +75,7 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
         Log.w("Lifecycle", "onDestroy " + this);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,16 @@ public class StartRouteActivity extends BaseButtons implements Session.SearchLis
 
         findViewById(R.id.btnProfile).setOnClickListener(v -> ButtonProfile());
         findViewById(R.id.btnBack).setOnClickListener(v -> ButtonBack(getBackActivityClass()));
+
+        TextView textFromLocation = findViewById(R.id.textFromLocation);
+        TextView textToLocation = findViewById(R.id.textToLocation);
+
+
+        MyPoints points = getIntent().getParcelableExtra("points");
+        if (points != null) {
+            textFromLocation.setText(points.getFrom().getLatitude() + " " + points.getFrom().getLongitude());
+            textToLocation.setText(points.getTo().getLatitude() + " " + points.getTo().getLongitude());
+        }
 
         SetUpMapFragment();
     }
