@@ -38,7 +38,7 @@ public class MainActivity extends BaseButtons implements OnBottomSheetClosedList
             Log.d("GeocodeExample", "No results found.");
         }
     */
-    private static final String apiKey = "28da8ea7-c995-4793-b13b-2971cf44e2f0";
+    private static final String apiKey = "";
 
     private ConstraintLayout CLFrom_Location, CLTo_Location;
     private TextView textFromLocation, textToLocation;
